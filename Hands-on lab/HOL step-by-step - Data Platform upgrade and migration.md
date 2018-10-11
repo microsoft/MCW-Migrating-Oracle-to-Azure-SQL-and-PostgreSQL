@@ -65,7 +65,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 # Data Platform upgrade and migration hands-on lab step-by-step
 
-If you have not yet completed the steps to set up your environment in [Before the hands-on lab](./Before%20the%20HOL%20-%20Data%20Platform%20upgrade%20and%20migration.md), you will need to do that before proceeding.
+If you have not yet completed the steps to set up your environment in [Before the hands-on lab](https://github.com/Microsoft/MCW-Data-Platform-upgrade-and-migration/blob/master/Hands-on%20lab/Before%20the%20HOL%20-%20Data%20Platform%20upgrade%20and%20migration%20.md), you will need to do that before proceeding.
 
 ## Abstract and learning objectives
 

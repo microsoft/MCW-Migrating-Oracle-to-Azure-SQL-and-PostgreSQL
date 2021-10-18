@@ -290,66 +290,79 @@ PgAdmin greatly simplifies database administration and configuration tasks by pr
 
 ### Task 9 (Migrate to PostgreSQL): Install the ora2pg utility
 
-**Ora2pg** is the tool we will use to migrate database objects and data. Microsoft's Data Migration Team has greatly simplified the process of obtaining this tool by providing the **installora2pg.ps1** script. You can access the script at the `C:\handsonlab\MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL\Hands-on lab\lab-files\installora2pg.ps1` location.
+**Ora2pg** is the tool we will use to migrate database objects and data. Microsoft's Data Migration Team has greatly simplified the process of obtaining this tool by providing the **installora2pg.ps1** the github repo for the script can be found [here](https://github.com/bramyeni/installora2pg)
 
-1. Navigate to the location mentioned above and right-click `installora2pg.ps1`. Then, select **Run with PowerShell**.
+You can access the script at the `C:\handsonlab\MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL\Hands-on lab\lab-files\installora2pg.ps1` location.
+
+Before running the PowerShell script install the Oracle client library and SDK. 
+
+1. Install Oracle Instant Client and SDK
+    - Navigate to [Oracle Downloads](https://www.oracle.com/database/technologies/instant-client/winx64-64-downloads.html)
+    - Scroll to **Version 12.2.X**. Select the installer for the **Basic Package**
+    - Download the zip file
+    - Scroll to the **SDK Package** installer under the **Development and Runtime - optional packages**
+    - Download the zip file
+
+   ![Screenshot to show downloading the basic package.](./media/basic-package.png "Basic package download")    
+
+   ![Screenshot to show the SDK Package download.](./media/sdk-package.png "SDK package download")
+
+    - Navigate to the directory where the zipped instant client packages reside.
+    - For the basic package, right-click it, and select **Extract All...**.
+    - When prompted set the location to `C:\`
+    - Select **Extract**.
+    - Repeat this process for the zipped SDK.
+      
+   ![Screenshot to show the process of installing client and SDK Packages.](./media/installing-basic-instantclient-package.png "Client and SDK package downloads")
+
+   ![The image shows the folder path to the client and the SDK.](media/extract-sdk-client-validation.png "Correct path to the SDK and Instant Client")
+
+    - The extracted client and sdk should be placed into `C:\instantclient_12_2\sdk`:
+  
+   ![The image shows the script expects an exact Instant Client install path.](media/ps-validation-path-instant-client.png "Instant Client install path")    
+    
+    - Open Explorer and rename the `C:\instantclient_12_2` folder to `C:\instantclient`
+
+2. Navigate to C:\handsonlab\MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL\Hands-on lab\lab-files\ 
+3. Run the script by right-click `installora2pg.ps1` and selecting **Run with PowerShell**
 
     ![Screenshot to show the process to install ora2pg.](./media/running-ora2pg-install-script.png "Installing ora2pg")
 
     >**Note:** If you are warned about a PS execution policy change, accept ALL of the policy changes.
-
-    You should see the script executing.
-
+           
     ![Image shows the initial PowerShell web request executing.](media/orapg-powershell-script-executing.png "PowerShell executing")
 
-2. Install the ora2pg utility dependencies.
+4. The script will install the ora2pg utility dependencies:
 
-   - Install Perl. It will take five minutes.
-   - Install the Oracle client library and SDK. To do this, you will first need to navigate to [Oracle Downloads](https://www.oracle.com/database/technologies/instant-client/winx64-64-downloads.html). Then, scroll to **Version 12.2.X**. Select the installer for the **Basic Package**.
-   - Download the zip file.
+    - Strawberry Perl [download](https://strawberryperl.com/)
+       >**Note:** The perl download via the script can fail with a download and package installation error.
+       To workaround 
+       a. Download Strawberry Perl manually
+       b. Rename the downloaded MSI to `perl.msi`
+       c. Place the MSI into `C:\Users\demouser\AppData\Local\Temp\2\perl.msi`
+       d. Re-run `installora2pg.ps1`
+    
+    - Validate the Oracle Client
+        >**Note**: If the script still cannot find `oci.dll`, rename the Instant Client extract folder name to `C:\instantclient` exactly.          
+        Press any key to terminate the script's execution, if the PS window is still visible.
+        Open Explorer and rename the  `C:\instantclient_12_2` folder to `C:\instantclient`.
+        Launch the script one more time for install path validation purposes.
+        If the previous steps were successful, the script should be able to locate **oci.dll** under `C:\instantclient\oci.dll`.
+         
+    - Git client 
+    - ora2pg utility
 
-    ![Screenshot to show downloading the basic package.](./media/basic-package.png "Basic package download")
-
-3. On the same Oracle link as above under the **version** section, locate the **SDK Package** installer under the **Development and Runtime - optional packages** section. Keep the zipped file in the Downloads directory.
-
-    ![Screenshot to show the SDK Package download.](./media/sdk-package.png "SDK package download")
-
-4. Navigate to the directory where the zipped instant client packages reside.
-
-    - For the basic package, right-click it, and select **Extract All...**.
-    - When prompted to choose the destination directory, navigate to the `C:\` location.
-    - Select **Extract**.
-    - Repeat this process for the zipped SDK.
-
-    ![Screenshot to show the process of installing client and SDK Packages.](./media/installing-basic-instantclient-package.png "Client and SDK package downloads")
-
-    Your folder path should show:
-
-    ![The image shows the folder path to the client and the SDK.](media/extract-sdk-client-validation.png "Correct path to the SDK and Instant Client")
-
-5. Install the Git client and ora2pg utility.  
-    - Return to the PowerShell script.
-    - Press any key to terminate the script's execution, if the PS window is still visible.
-    - Open Explorer and rename the  `C:\instantclient_12_2` folder to `C:\instantclient`.
-    - Launch the script one more time for install path validation purposes.
-    - If the previous steps were successful, the script should be able to locate **oci.dll** under `C:\instantclient\oci.dll`.
-
-        >**Note**: If the script still cannot find `oci.dll`, rename the Instant Client extract folder name to `C:\instantclient` exactly.
-
-    ![The image shows the script expects an exact Instant Client install path.](media/ps-validation-path-instant-client.png "Instant Client install path")
-
-    If the path is correct, you should see the script downloading the Git installer.
+   You should see the script downloading the Git installer.
 
     ![The image shows the Git installer downloading.](media/ps-downloading-git-installer.png "Downloading Git installer")
 
     >**Note**: The script may throw errors of not being able to find a Git executable at a certain location. This should not impact the installation.
 
-    A successful installation should have a PowerShell screen that resembles this:
+  A successful installation should have a PowerShell screen that resembles this:
 
-    ![The image shows a successful Git and ora2pg installation](media/ps-successful-git-ora2pg-installation.png "Git and ora2pg installation")
+   ![The image shows a successful Git and ora2pg installation](media/ps-successful-git-ora2pg-installation.png "Git and ora2pg installation")
 
-6. Once ora2pg installs, you will need to configure PATH variables.
-
+5. Once the script has completed successfully and ora2pg is installed, you need to configure PATH variables.
     - Search for **View advanced system settings** in Windows.
     - Select the result, and the **System Properties** dialog box should open.
     - By default, the **Advanced** tab should be showing, but if not, navigate to it.
@@ -357,11 +370,11 @@ PgAdmin greatly simplifies database administration and configuration tasks by pr
 
     ![Screenshot showing process to enter environment labels.](./media/enter-environment-variables.png "Environment Variables selected")
 
-7. Under **System variables**, select **Path**. Select **Edit...**.
+6. Under **System variables**, select **Path**. Select **Edit...**.
 
     ![Screenshot to show editing the path variables.](./media/selecting-path.png "Selecting the PATH variables")
 
-8. The **Edit environment variable** box should be displaying.
+7. The **Edit environment variable** box should be displaying.
 
     - Select **New**.
     - Enter **C:\instantclient**.

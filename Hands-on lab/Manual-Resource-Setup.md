@@ -352,6 +352,8 @@ PgAdmin greatly simplifies database administration and configuration tasks by pr
 
     ![Screenshot to show downloading the basic package.](./media/basic-package.png "Basic package download")
 
+    > **Note**: If you encounter any script execution errors, try running the script again.
+
 3. On the same Oracle link as above under the **version** section, locate the **SDK Package** installer under the **Development and Runtime - optional packages** section. Keep the zipped file in the Downloads directory.
 
     ![Screenshot to show the SDK Package download.](./media/sdk-package.png "SDK package download")

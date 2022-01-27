@@ -29,10 +29,10 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Overview](#overview)
   - [Solution architecture](#solution-architecture)
   - [Requirements](#requirements)
-  - [Exercise 1: Setup Oracle 18c Express Edition](#exercise-1-setup-oracle-18c-express-edition)
-    - [Task 1: Create the Northwind database in Oracle 18c XE](#task-1-create-the-northwind-database-in-oracle-18c-xe)
+  - [Exercise 1: Setup Oracle 21c Express Edition](#exercise-1-setup-oracle-21c-express-edition)
+    - [Task 1: Create the Northwind database in Oracle 21c XE](#task-1-create-the-northwind-database-in-oracle-21c-xe)
     - [Task 2: Configure the Starter Application to use Oracle](#task-2-configure-the-starter-application-to-use-oracle)
-  - [Exercise 2: Assess the Oracle 18c Database before Migrating to Azure SQL Database](#exercise-2-assess-the-oracle-18c-database-before-migrating-to-azure-sql-database)
+  - [Exercise 2: Assess the Oracle 21c Database before Migrating to Azure SQL Database](#exercise-2-assess-the-oracle-21c-database-before-migrating-to-azure-sql-database)
     - [Task 1: Update Statistics and Identify Invalid Objects](#task-1-update-statistics-and-identify-invalid-objects)
   - [Exercise 3: Migrate the Oracle database to Azure SQL Database](#exercise-3-migrate-the-oracle-database-to-azure-sql-database)
     - [Task 1: Migrate the Oracle database to Azure SQL Database using SSMA](#task-1-migrate-the-oracle-database-to-azure-sql-database-using-ssma)
@@ -88,13 +88,13 @@ For the homogenous migration, the solution begins with using the Microsoft Data 
   - Trial subscriptions will not work.
 - A virtual machine configured with Visual Studio 2019 Community edition.
 
-## Exercise 1: Setup Oracle 18c Express Edition
+## Exercise 1: Setup Oracle 21c Express Edition
 
 Duration: 45 minutes
 
 In this exercise, you will load a sample database supporting the application. Ensure that you installed Oracle XE, Oracle Data Access Components, and Oracle SQL Developer, as detailed in the [Before the Hands-on Lab document](Before%20the%20HOL%20-%20Migrating%20Oracle%20to%20Azure%20SQL%20and%20PostgreSQL.md).
 
-### Task 1: Create the Northwind database in Oracle 18c XE
+### Task 1: Create the Northwind database in Oracle 21c XE
 
 WWI has provided you with a copy of their application, including a database script to create their Oracle database. They have asked that you use this as a starting point for migrating their database and application to Azure SQL DB. In this task, you will create a connection to the Oracle database on your Lab VM.
 
@@ -189,7 +189,7 @@ In this task, you will add the necessary configuration to the `NorthwindMVC` sol
 
 9.  Close the browser to stop debugging the application, and return to Visual Studio.
 
-## Exercise 2: Assess the Oracle 18c Database before Migrating to Azure SQL Database
+## Exercise 2: Assess the Oracle 21c Database before Migrating to Azure SQL Database
 
 Duration: 15 minutes
 
@@ -203,12 +203,12 @@ In this exercise, you will prepare the existing Oracle database for its migratio
 
     ![Creating a new SQL script in Oracle SQL Developer](./media/creating-new-sql-file-sqldev.png "New SQL file")
    
-3. Call the new SQL File `update-18c-stats.sql`. Save it in a location of your choice, such as the `Oracle Scripts` directory from earlier.
+3. Call the new SQL File `update-21c-stats.sql`. Save it in a location of your choice, such as the `Oracle Scripts` directory from earlier.
 
 4. Now, you will populate the new file with the following statements. Run the file as you did when you populated database objects.
 
     ```sql
-    -- 18c script
+    -- 21c script
     EXECUTE DBMS_STATS.GATHER_SCHEMA_STATS(ownname => 'NW');
     EXECUTE DBMS_STATS.GATHER_DATABASE_STATS;
     EXECUTE DBMS_STATS.GATHER_DICTIONARY_STATS;

@@ -29,10 +29,10 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Overview](#overview)
   - [Solution architecture](#solution-architecture)
   - [Requirements](#requirements)
-  - [Exercise 1: Setup Oracle 18c Express Edition](#exercise-1-setup-oracle-18c-express-edition)
-    - [Task 1: Create the Northwind database in Oracle 18c XE](#task-1-create-the-northwind-database-in-oracle-18c-xe)
+  - [Exercise 1: Setup Oracle 21c Express Edition](#exercise-1-setup-oracle-21c-express-edition)
+    - [Task 1: Create the Northwind database in Oracle 21c XE](#task-1-create-the-northwind-database-in-oracle-21c-xe)
     - [Task 2: Configure the Starter Application to use Oracle](#task-2-configure-the-starter-application-to-use-oracle)
-  - [Exercise 2: Assess the Oracle 18c Database before Migrating to PostgreSQL](#exercise-2-assess-the-oracle-18c-database-before-migrating-to-postgresql)
+  - [Exercise 2: Assess the Oracle 21c Database before Migrating to PostgreSQL](#exercise-2-assess-the-oracle-21c-database-before-migrating-to-postgresql)
     - [Task 1: Update Statistics and Identify Invalid Objects](#task-1-update-statistics-and-identify-invalid-objects)
   - [Exercise 3: Prepare to Migrate the Oracle database to PostgreSQL](#exercise-3-prepare-to-migrate-the-oracle-database-to-postgresql)
     - [Task 1: Prepare the PostgreSQL instance using pgAdmin](#task-1-prepare-the-postgresql-instance-using-pgadmin)
@@ -82,13 +82,13 @@ The solution begins by installing and using ora2pg to assess the task of migrati
 
     >**Note**: If you find that your Visual Studio 2019 VM image comes with Visual Studio 2017, and not 2019, you will need to manually install 2019 Community from [here](https://visualstudio.microsoft.com/downloads/). Ensure that the **ASP.NET and web development** and **Azure development** Workloads are enabled for your installation.
 
-## Exercise 1: Setup Oracle 18c Express Edition
+## Exercise 1: Setup Oracle 21c Express Edition
 
 Duration: 45 minutes
 
 In this exercise, you will load a sample database supporting the application. Ensure that you installed Oracle XE, Oracle Data Access Components, and Oracle SQL Developer, as detailed in the Before the Hands-on Lab documents.
 
-### Task 1: Create the Northwind database in Oracle 18c XE
+### Task 1: Create the Northwind database in Oracle 21c XE
 
 WWI has provided you with a copy of their application, including a database script to create their Oracle database. They have asked that you use this as a starting point for migrating their database and application to Azure SQL DB. In this task, you will create a connection to the Oracle database on your Lab VM.
 
@@ -183,7 +183,7 @@ In this task, you will add the necessary configuration to the `NorthwindMVC` sol
 
 9. Close the browser to stop debugging the application, and return to Visual Studio.
 
-## Exercise 2: Assess the Oracle 18c Database before Migrating to PostgreSQL
+## Exercise 2: Assess the Oracle 21c Database before Migrating to PostgreSQL
 
 Duration: 15 minutes
 

@@ -499,44 +499,34 @@ Views are not referenced by the sample application, but we are including this ta
 
     ![The image shows the Oracle views exported to SQL files in Explorer.](media/valid-view-export.png "View SQL Statements")
 
-2. Before we invoke NW-views.sql, we will need to make changes to four files. This is because our application uses a **to_date() function that is not supported in PostgreSQL**. We will need to replace the command in the code with the equivalent **DATE()** function in PostgreSQL.
+2. Before we invoke NW-views.sql, we will need to make changes to four files. This is because our application uses a `to_date()` function that is not supported in PostgreSQL. We will need to replace the command in the code with the equivalent `DATE()` function in PostgreSQL.
 
-3. Open **SALES_TOTALS_BY_AMOUNT_NW-views.sql** and replace the existing last line:
+   1. Open **SALES_TOTALS_BY_AMOUNT_NW-views.sql**. In the last line, replace `to_date(Orders.ShippedDate, 'MM/DD/YYYY')` with `DATE(Orders.ShippedDate)`.
 
-    ![Screenshot showing the function that needs to be replaced for sales totals by amounts.](./media/sales-totals-amount-view-old.png "to_date function")
+   2. Open **QUARTERLY_ORDERS_NW-views.sql** and replace `to_date(Orders.OrderDate, 'MM/DD/YYYY')` with `DATE(Orders.OrderDate)`.
 
-    with this:
+   3. Open **PRODUCT_SALES_FOR_1997_NW-views.sql** and replace `to_date(Orders.ShippedDate, 'MM/DD/YYYY')` with `DATE(Orders.ShippedDate)`.
 
-    ![Screenshot showing the new view for Sales Total Amounts.](./media/sales-totals-amount-view-new.png "Sales Totals amounts new view")
+   4. Open **SALES_BY_CATEGORY_NW-views.sql** and replace `to_date(Orders.OrderDate, 'MM/DD/YYYY')` with `DATE(Orders.OrderDate)`.
 
-4. Open **QUARTERLY_ORDERS_NW-views.sql** and replace **to_date(Orders.OrderDate, 'MM/DD/YYYY')** with **DATE(Orders.OrderDate)**.
-
-    >**Note**: The other two applications of the `to_date()` function in that file are acceptable, as seen below.
-
-    ![Testing to_date() function from pgAdmin.](./media/to-date-demo.png "to_date() sample")
-
-5. Open **PRODUCT_SALES_FOR_1997_NW-views.sql** and replace **to_date(Orders.ShippedDate, 'MM/DD/YYYY')** with **DATE(Orders.ShippedDate)**.
-
-6. Open **SALES_BY_CATEGORY_NW-views.sql** and replace **to_date(Orders.OrderDate, 'MM/DD/YYYY')** with **DATE(Orders.OrderDate)**.
-
-7. Now that all modifications are complete, run the NW-views.sql file in psql:
+3. Now that all modifications are complete, run the NW-views.sql file in psql:
 
     ```cmd
     psql -U NW@[DB Name] -h [DB Name].postgres.database.azure.com -d NW < NW-views.sql
     ```
 
-8. With that, we have migrated views.
+4. With that, we have migrated views.
 
-    - Navigate to the **Query Editor** and test these migrated views.
+    - Navigate to the **Query Editor**.
     - Utilize the query below, which will show data where **productsales** is greater than 5000. You can envision how this would be useful in an organization to identify successful items in a given year (1997).
 
-    ```sql
-    SELECT *
-    FROM product_sales_for_1997
-    WHERE productsales > 5000;
-    ```
+        ```sql
+        SELECT *
+        FROM product_sales_for_1997
+        WHERE productsales > 5000;
+        ```
 
-9. When the query is executed, you should see the following result set, with 42 rows. This shows that we have successfully migrated the views.
+5. When the query is executed, you should see the following result set, with 42 rows. This shows that we have successfully migrated the views.
 
     ![Result set from query involving the product_sales_for_1997 view.](./media/1997-view-result-set.png "Result set")
 
@@ -568,15 +558,7 @@ Our application utilizes a single stored procedure, so we must be able to migrat
 
     A second detail to keep in mind is NULLs vs. empty strings. In PostgreSQL, they are handled differently. This is a small distinction in Oracle that can be overlooked, leading to incomplete query results.
 
-4. We will need to edit the procedure's parameter list, and we can do this by using a refcursor. Replace the existing last parameter of the procedure:
-
-    ![Screenshot showing old SP parameter list.](./media/proc-param-list.png "Old parameter list")
-
-    with this:
-
-    ![Screenshot showing new SP parameter list.](./media/proc-param-list-new.png "New parameter list")
-
-    Save your edits.
+4. We will need to edit the procedure's parameter list, and we can do this by using a refcursor. Replace the existing last parameter of the procedure, `cur_OUT INOUT PKGENTLIB_ARCHITECTURE.CURENTLIB_ARCHITECTURE`, with `cur_OUT INOUT REFCURSOR`.
 
 5. A useful PostgreSQL extension that facilitates greater compatibility with Oracle database objects is **orafce**, which is provided with Azure Database for PostgreSQL. To enable it, navigate to pgAdmin, enter your master password, and connect to your PostgreSQL instance. Then, enter the following command into the query editor and execute it:
 
@@ -686,19 +668,19 @@ In this task, we will be recreating the ADO.NET data models to accurately repres
     }
     ```
 
-11. Build the solution. Ensure that no errors appear. We added `SalesByYearDbSet` to **DataContext** because **HomeController.cs** references it. We deleted the controllers and their associated views because we will scaffold them again from the models.
+10. Build the solution. Ensure that no errors appear. We added `SalesByYearDbSet` to **DataContext** because **HomeController.cs** references it. We deleted the controllers and their associated views because we will scaffold them again from the models.
 
     > **Note**: If you encounter build errors, verify that the `_ViewImports.cshtml` file in the `Views` directory was not accidentally deleted. If it was, simply copy the [file from the project GitHub repository](https://raw.githubusercontent.com/microsoft/MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL/master/Hands-on%20lab/lab-files/starter-project/NorthwindMVC/Views/_ViewImports.cshtml).
 
-12. Right-click the **Controllers** folder and select **Add** (1). Select **New Scaffolded Item...** (2).
+11. Right-click the **Controllers** folder and select **Add** (1). Select **New Scaffolded Item...** (2).
 
     ![Adding a new scaffolded item.](./media/add-scaffolded-item.png "New scaffolded item")
 
-13. Select **MVC Controller with views, using Entity Framework**. Then, select **Add**.
+12. Select **MVC Controller with views, using Entity Framework**. Then, select **Add**.
 
     ![Add MVC Controller with Views, using Entity Framework.](./media/add-mvc-with-ef.png "MVC Controller with Views, using Entity Framework")
 
-14. In the **ADD MVC Controller with views, using Entity Framework** dialog box, provide the following details. Then, select **Add**. Visual Studio will build the project.
+13. In the **ADD MVC Controller with views, using Entity Framework** dialog box, provide the following details. Then, select **Add**. Visual Studio will build the project.
 
     - **Model class**: Select `Customer`.
     - **Data context class**: Select `DataContext`.
@@ -707,7 +689,7 @@ In this task, we will be recreating the ADO.NET data models to accurately repres
 
     ![Scaffolding controllers and views from model classes.](./media/customer-scaffold-views.png "Scaffolding controllers and views")
 
-15. Repeat steps 12-14, according to the following details:
+14. Repeat steps 11-13, according to the following details:
 
     - **EmployeesController.cs**
       - Based on the **Employee** model class
@@ -718,7 +700,7 @@ In this task, we will be recreating the ADO.NET data models to accurately repres
     - **SuppliersController.cs**
       - Based on the **Supplier** model class
 
-16. Navigate to **Startup.cs**. Ensure that PostgreSQL is configured as the correct provider and the appropriate connection string is referenced in the **ConfigureServices** method. 
+15. Navigate to **Startup.cs**. Ensure that PostgreSQL is configured as the correct provider and the appropriate connection string is referenced in the **ConfigureServices** method. 
 
     ```csharp
     // This method gets called by the runtime. Use this method to add services to the container.
@@ -783,15 +765,15 @@ With PostgreSQL, stored procedures cannot return output values without a cursor.
     var salesByYear = await _context.SalesByYearDbSet.FromSqlRaw("SELECT * FROM SALESBYYEAR_func(@beginDate, @endDate);", beginDate, endDate).ToListAsync();
     ```
 
-6. Navigate to the `Models` folder in the Visual Studio Solution. In the `SalesByYear.cs` class, update the type of the `OrderID` property to `long`.
+6. Navigate to the `Models` folder in the Visual Studio Solution. In the `SalesByYear.cs` file, update the type of the `OrderID` property to `long`.
 
     ```csharp
     public long OrderID { get; set; }
     ```
 
-7. Run the application again by selecting the green Start button in the Visual Studio toolbar.
+7. Run the application again by selecting the green IIS Express button in the Visual Studio toolbar.
 
-    ![The Start button is highlighted on the Visual Studio toolbar.](./media/visual-studio-toolbar-start.png "Select Start")
+    ![The IIS Express button is highlighted on the Visual Studio toolbar.](./media/visual-studio-toolbar-iis.png "Select IIS Express")
 
 8. Verify the graph is showing correctly on the Northwind Traders dashboard.
 

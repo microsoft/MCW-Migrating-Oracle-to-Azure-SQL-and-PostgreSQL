@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-September 2021
+February 2022
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -92,15 +92,11 @@ In this exercise, you will load a sample database supporting the application. En
 
 WWI has provided you with a copy of their application, including a database script to create their Oracle database. They have asked that you use this as a starting point for migrating their database and application to Azure SQL DB. In this task, you will create a connection to the Oracle database on your Lab VM.
 
-1. In a web browser on LabVM, download a copy of the [Migrating Oracle to  Azure SQL and PostgreSQL upgrade and migration MCW repo](https://github.com/microsoft/MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL/archive/refs/heads/master.zip).
-
-2. Unzip the contents to **C:\handsonlab**.
-
-3. Launch SQL Developer from the `C:\Tools\sqldeveloper` path from earlier. In the **Database Connection** window, select **Create a Connection Manually**.
+1. Launch SQL Developer from the `C:\Tools\sqldeveloper` path from earlier. In the **Database Connection** window, select **Create a Connection Manually**.
 
    ![Manual connection creation in Oracle SQL Developer.](./media/create-connection-sql-developer.png "SQL Developer add connection manually")
 
-4. Provide the following parameters to the **New / Select Database Connection** window. Select **Connect** when you are complete.
+2. Provide the following parameters to the **New / Select Database Connection** window. Select **Connect** when you are complete.
 
    - **Name**: Northwind
    - **Username**: system
@@ -109,19 +105,19 @@ WWI has provided you with a copy of their application, including a database scri
 
    ![Northwind connection in SQL Developer.](./media/new-oracle-connection-sqldeveloper.png "Northwind connection")
 
-5. Once the connection completes, select the **Open File** icon (1). Navigate to `C:\handsonlab\MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL-master\Hands-on lab\lab-files\starter-project\Oracle Scripts\1.northwind.oracle.schema`. Then, execute the DDL statements (2).
+3. Once the connection completes, select the **Open File** icon (1). Navigate to `C:\handsonlab\MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL-master\Hands-on lab\lab-files\starter-project\Oracle Scripts\1.northwind.oracle.schema`. Then, execute the DDL statements (2).
 
    ![Execute schema creation script in SQL Developer.](./media/execute-first-northwind-sql-script.png "Schema creation script")
 
-6. Right-click the **Northwind** connection and select **Properties**. Then, edit the **Username** to `NW`, and the **Password** to `oracledemo123`. Select **Connect**. Note that you may be asked to enter the password again.
+4. Right-click the **Northwind** connection and select **Properties**. Then, edit the **Username** to `NW`, and the **Password** to `oracledemo123`. Select **Connect**. Note that you may be asked to enter the password again.
 
-7. In the Open File dialog, navigate to `C:\handsonlab\MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL-master\Hands-on lab\lab-files\starter-project\Oracle Scripts`, select the file `2.northwind.oracle.tables.views.sql`, and then select **Open**.
+5. In the Open File dialog, navigate to `C:\handsonlab\MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL-master\Hands-on lab\lab-files\starter-project\Oracle Scripts`, select the file `2.northwind.oracle.tables.views.sql`, and then select **Open**.
 
-8. As you did previously, run the script. Note that SQL Developer provides an output pane to view any errors.
+6. As you did previously, run the script. Note that SQL Developer provides an output pane to view any errors.
 
    ![Script output of the second Northwind database script.](./media/northwind-script-2-output.png "SQL Developer output pane")
 
-9. Repeat steps 7 - 8, replacing the file name in step 26 with each of the following:
+7. Repeat steps 7 - 8, replacing the file name in step 26 with each of the following:
 
     - `3.northwind.oracle.packages.sql`
 
@@ -137,9 +133,9 @@ WWI has provided you with a copy of their application, including a database scri
 
     - `5.northwind.oracle.seed.sql`
 
-      > **Important**: This query can take several minutes to run, so make sure you wait until you see the **Commit complete** message in the output window before executing the next file.
+      > **Important**: This query can take several minutes to run, so make sure you wait until you see the **Commit complete** message.
 
-10. After you finish running these scripts, validate that the database objects were created. The image below demonstrates the Tables and the Views created by the script.
+8. After you finish running these scripts, validate that the database objects were created. The image below demonstrates the Tables and the Views created by the script.
 
     ![Presenting the tables and views generated by the Oracle scripts.](./media/views-table-validation.png "Oracle tables and views")
 
@@ -147,7 +143,7 @@ WWI has provided you with a copy of their application, including a database scri
 
 In this task, you will add the necessary configuration to the `NorthwindMVC` solution to connect to the Oracle database you created in the previous task.
 
-1. On your LabVM, navigate to `C:\handsonlab\MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL\Hands-on lab\lab-files\starter-project`. Launch `NorthwindMVC.sln`.
+1. On your LabVM, navigate to `C:\handsonlab\MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL-master\Hands-on lab\lab-files\starter-project`. Launch `NorthwindMVC.sln`.
 
    ![Launch NorthwindMVC.sln from the downloaded lab files.](./media/launch-northwind-solution.png "NorthwindMVC Visual Studio 2019 Solution")
 
@@ -173,11 +169,11 @@ In this task, you will add the necessary configuration to the `NorthwindMVC` sol
    }
    ```
 
-7. Run the solution by selecting the green **Start** button on the Visual Studio toolbar.
+7. Run the solution by selecting the green **IIS Express** button on the Visual Studio toolbar. Trust the IIS self-signed certificate.
 
-   ![Start is selected on the toolbar.](./media/visual-studio-toolbar-start.png "Run the solution")
+   ![IIS Express is selected on the toolbar.](./media/visual-studio-toolbar-iis.png "Run the solution")
 
-8. You should see the Northwind Traders Dashboard load in your browser.
+8. You should see the Northwind Traders Dashboard load in your browser. If you are unable to see the dashboard chart, try downloading a browser like [Microsoft Edge](https://www.microsoft.com/edge/business/download) to facilitate your viewing.
 
    ![The Northwind Traders Dashboard is visible in a browser.](./media/northwind-traders-dashboard.png "View the dashboard")
 
@@ -191,7 +187,9 @@ In this exercise, you will prepare the existing Oracle database for its migratio
 
 ### Task 1: Update Statistics and Identify Invalid Objects
 
-1. Run the following statements in SQL Developer.
+1. Create a new SQL script by pressing the **New** button at the upper left-hand corner of the application and selecting **SQL File**. Title the new file `UpdateStatistics.sql`.
+
+2. Paste the following statements into the file and run the file.
 
     ```sql
     -- 21c script
@@ -202,7 +200,9 @@ In this exercise, you will prepare the existing Oracle database for its migratio
 
     >**Note**: This script can take over one minute to run. Ensure that you receive confirmation that the script has executed successfully.
 
-2. Now, we will utilize a query that lists database objects that are invalid and unsupported by the ora2pg utility. It is recommended to fix any errors and compile the objects before starting the migration process.
+3. Create a new file titled `FindInvalid.sql`.
+
+4. Now, we will utilize a query that lists database objects that are invalid and unsupported by the ora2pg utility. It is recommended to fix any errors and compile the objects before starting the migration process.
 
     ```sql
     SELECT owner, object_type, object_name
@@ -288,11 +288,11 @@ Our configuration in pgAdmin is now complete.
 
     >**Note**: In some cases, ora2pg may fail to find its configuration file. In scenarios such as these, you may need to provide the -c flag with the name of the actual configuration file in your ora2pg directory.
 
-    >**Note**: You may receive an error that ora2pg cannot find Perl. If this is the case, just ensure that `C:\Strawberry\perl\bin` has been added to the PATH variable.
-
     ```cmd
-    ora2pg -c ora2pg_dist.conf --init_project nw_migration
+    ora2pg -c ora2pg.conf.dist --init_project nw_migration
     ```
+
+    >**Note**: You may receive an error that ora2pg cannot find Perl. If this is the case, just ensure that `C:\Strawberry\perl\bin` has been added to the PATH variable.
 
 3. Verify that the command succeeded. There should be a folder with the same name as your migration project in the C:\ora2pg directory.
 
@@ -387,7 +387,7 @@ Exercise 3 covered planning and assessment steps.  To start the database migrati
 
     >**Note**: Open the **schema\tables\NW-psql.sql** file. Notice that all table names are lowercase--using uppercase names for tables and/or columns will require quotations whenever referenced. Furthermore, ora2pg converts data types fairly well. If you have strong knowledge of the stored data, you can modify types to improve performance. You can export individual table schemas in separate files to facilitate the review.
 
-3. Execute the PostgreSQL commands against the PostgreSQL database. You can use any PostgreSQL database client. One way to execute a SQL file against a PostgreSQL database is through the **psql** utility located at the `C:\Program Files\pgAdmin 4\v5\runtime` directory. Just as we did in task 4, append this location to the system PATH variable. Note that you will need to restart your command prompt windows for the change to take effect.
+3. Execute the PostgreSQL commands against the PostgreSQL database. You can use any PostgreSQL database client. One way to execute a SQL file against a PostgreSQL database is through the **psql** utility located at the `C:\Program Files\pgAdmin 4\v6\runtime` directory. Just as we did in task 4, append this location to the system PATH variable. **Note that you will need to restart your command prompt windows for the change to take effect.**
 
     ![Screenshot showing the process to add psql to the PATH variable.](./media/adding-psql-loc-to-path-x64.png "Adding psql to PATH variable")
 
@@ -408,7 +408,7 @@ Exercise 3 covered planning and assessment steps.  To start the database migrati
 
     ![The image shows the create table statements being executed.](media/psql-create-table-results.png "PSQL Create Table Statements")
 
-    >**Note**: If you receive an error like "could not find a 'psql' to execute", use the entire path to the executable in the command (`"C:\Program Files\pgAdmin 4\v5\runtime\psql"`)
+    >**Note**: If you receive an error like "could not find a 'psql' to execute", use the entire path to the executable in the command (`"C:\Program Files\pgAdmin 4\v6\runtime\psql"`)
 
     - Navigate to pgAdmin. Refresh the database objects.  Verify the tables exist in pgAdmin.
   
@@ -418,11 +418,7 @@ Exercise 3 covered planning and assessment steps.  To start the database migrati
 
 In this Task, we will use the ora2pg utility to migrate table data to the PostgreSQL instance, now that we have created the table schema on the landing zone.
 
-1. Open Explorer and navigate to `C:\ora2pg\nw_migration\config`. Edit the **ora2pg.conf** file. Make sure the PG_DSN, PG_USER, and PG_PWD parameters have the correct values.
-
-    ![The image shows the PG server parameters to connect to Azure PostgreSQL.](media/ora2pg-setup-psql-config.png "Update the PG config")
-
-2. Navigate to `C:\ora2pg\nw_migration\data` in command prompt and enter the following command.
+1. Navigate to `C:\ora2pg\nw_migration\data` in command prompt and enter the following command.
 
     ```cmd
     cd C:\ora2pg\nw_migration\data

@@ -6,7 +6,7 @@ WWI has also learned of the benefits that Azure Database for PostgreSQL offers f
 
 In addition to predictable growth, they’ve had a substantial amount of growth in the data they store in their data warehouse. Their data warehouse is starting to show its age, slowing down during extract, transform, and load (ETL) operations and during critical queries. The data warehouse is running on SQL Server 2008 R2 Standard Edition. The CIO is excited about the potential performance improvements offered by Azure SQL Database, such as clustered ColumnStore indexes. She is also hoping that table compression can improve performance and backup times.
 
-September 2021
+February 2022
 
 ## Target audience
 

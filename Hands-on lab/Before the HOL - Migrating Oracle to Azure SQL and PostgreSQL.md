@@ -123,7 +123,7 @@ This lab uses an ARM template to automate the setup of lab resources. In this ta
 
 3. Select **Review + create**. Let validation pass.
 
-4. Select **Create**. It should take 10-20 minutes to deploy, depending on whether you deploy the optional homogenous migration resources.
+4. Select **Create**. It should take 10-20 minutes to deploy.
 
 ### Task 4: Connect to the Lab VM
 
@@ -176,6 +176,10 @@ In this task, you will create an RDP connection to your Lab virtual machine (VM)
 
 12. Close the Server Manager.
 
+13. In a web browser on LabVM, download a copy of the [Migrating Oracle to  Azure SQL and PostgreSQL upgrade and migration MCW repo](https://github.com/microsoft/MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL/archive/refs/heads/master.zip).
+
+14. Unzip the contents to **C:\handsonlab**.
+
 ### Task 5: Install Oracle XE
 
 If you want to complete the Oracle to PostgreSQL or Oracle to Azure SQL Database labs, you need to complete this step to install the Express Edition (XE) of Oracle database.
@@ -188,11 +192,11 @@ The same applies to Tasks 6 and 7.
 
    ![This image demonstrates how to download Oracle 21c XE from the Oracle Database XE Downloads page.](./media/21c-oracle-downlaod.png "Oracle 21c download")
 
-3. Accept the license agreement, if you are presented with one.
+3. Accept the license agreement and sign in, if necessary.
 
 4. Extract the ZIP file. Right-click `setup.exe`, and select **Run as administrator**.
 
-5. Select **Next** to step through each screen of the installer, accepting the license agreement and default values, until you get to the **Specify Database Passwords** screen.
+5. Select **Next** to step through each screen of the installer, accepting the license agreement and default values, until you get to the **Oracle Database Information** screen.
 
 6.  On the **Oracle Database Information** screen, set the password to **Password.1!!**, and select **Next**.
 
@@ -264,13 +268,13 @@ In this task, you will install Oracle SQL Developer, a common IDE to interact wi
 
 PgAdmin greatly simplifies database administration and configuration tasks by providing an intuitive GUI. Hence, we will be using it to create a new application user and test the migration.
 
-1. You will need to navigate to <https://www.pgadmin.org/download/pgadmin-4-windows/> to obtain **pgAdmin 4**. At the time of writing, **v5.5** is the most recent version. Select the link to the installer, as shown below.
+1. You will need to navigate to <https://www.pgadmin.org/download/pgadmin-4-windows/> to obtain **pgAdmin 4**. At the time of writing, **v6.5** is the most recent version. Select the link to the installer, as shown below.
 
-    ![The screenshot shows the correct version of the pgAdmin utility to be installed.](./media/pgadmin-5.5-install.png "pgAdmin 4 v5.5")
+    ![The screenshot shows the correct version of the pgAdmin utility to be installed.](./media/pgadmin-6.5-install.png "pgAdmin 4 v6.5")
 
-2. Download the **pgadmin4-5.5-x64.exe** file.
+2. Download the **pgadmin4-6.5-x64.exe** file.
 
-3. Once the installer launches, accept all defaults. Complete the installation steps.
+3. Once the installer launches, install it for all users, and accept all defaults. Complete the installation steps.
 
 4. To open pgAdmin, use the Windows Search utility. Type `pgAdmin`.
 
@@ -325,8 +329,6 @@ PgAdmin greatly simplifies database administration and configuration tasks by pr
     - Open Explorer and rename the  `C:\instantclient_12_2` folder to `C:\instantclient`.
     - Launch the script one more time for install path validation purposes.
     - If the previous steps were successful, the script should be able to locate **oci.dll** under `C:\instantclient\oci.dll`.
-
-        >**Note**: If the script still cannot find `oci.dll`, rename the Instant Client extract folder name to `C:\instantclient` exactly.
 
     ![The image shows the script expects an exact Instant Client install path.](media/ps-validation-path-instant-client.png "Instant Client install path")
 

@@ -9,7 +9,7 @@ Before the hands-on lab Manual Resource setup guide
 </div>
 
 <div class="MCWHeader3">
-September 2021
+February 2022
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -62,7 +62,7 @@ In this lab, there are three major migration paths:
   - Migrating SQL Server 2008 R2 Data Warehouse to Azure SQL (*homogenous* migration)
   - Migrating Oracle to Azure Database for PostgreSQL
 
-Regardless of which path(s) you complete, follow Tasks 1-3. After that, the Task titles indicate which migration paths they are intended for.
+Regardless of which path(s) you complete, follow Tasks 1-3. Tasks 4-6 are necessary for the Oracle to Azure SQL and Oracle to Azure PostgreSQL migrations. After that, the Task titles indicate which migration paths they are intended for.
 
 ## Before the hands-on lab
 
@@ -200,6 +200,10 @@ In this task, you will create an RDP connection to your Lab virtual machine (VM)
 
 12. Close the Server Manager.
 
+13. In a web browser on LabVM, download a copy of the [Migrating Oracle to  Azure SQL and PostgreSQL upgrade and migration MCW repo](https://github.com/microsoft/MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL/archive/refs/heads/master.zip).
+
+14. Unzip the contents to **C:\handsonlab**.
+
 ### Task 4: Install Oracle XE
 
 If you want to complete the Oracle to PostgreSQL or Oracle to Azure SQL Database labs, you need to complete this step to install the Express Edition (XE) of Oracle database.
@@ -212,11 +216,11 @@ The same applies for Tasks 5 and 6.
 
    ![This image demonstrates how to download Oracle 21c XE from the Oracle Database XE Downloads page.](./media/21c-oracle-downlaod.png "Oracle 21c download")
 
-3. Accept the license agreement, if you are presented with one.
+3. Accept the license agreement and sign in, if necessary.
 
 4. Extract the ZIP file. Right-click `setup.exe`, and select **Run as administrator**.
 
-5. Select **Next** to step through each screen of the installer, accepting the license agreement and default values, until you get to the **Specify Database Passwords** screen.
+5. Select **Next** to step through each screen of the installer, accepting the license agreement and default values, until you get to the **Oracle Database Information** screen.
 
 6.  On the **Oracle Database Information** screen, set the password to **Password.1!!**, and select **Next**.
 
@@ -316,13 +320,13 @@ In the Oracle to Azure SQL migration lab, we will use the SQL Server Migration A
 
 PgAdmin greatly simplifies database administration and configuration tasks by providing an intuitive GUI. Hence, we will be using it to create a new application user and test the migration.
 
-1. On the LabVM, in Internet Explorer, navigate to <https://www.pgadmin.org/download/pgadmin-4-windows/> to obtain **pgAdmin 4**. At the time of writing, **v5.5** is the most recent version. Select the link to the installer, as shown below.
+1. On the LabVM, in Internet Explorer, navigate to <https://www.pgadmin.org/download/pgadmin-4-windows/> to obtain **pgAdmin 4**. At the time of writing, **v6.5** is the most recent version. Select the link to the installer, as shown below.
 
-    ![The screenshot shows the correct version of the pgAdmin utility to be installed.](./media/pgadmin-5.5-install.png "pgAdmin 4 v5.5")
+    ![The screenshot shows the correct version of the pgAdmin utility to be installed.](./media/pgadmin-6.5-install.png "pgAdmin 4 v6.5")
 
-2. Download the **pgadmin4-5.5-x64.exe** file.
+2. Download the **pgadmin4-6.5-x64.exe** file.
 
-3. Once the installer launches, accept all defaults. Complete the installation steps.
+3. Once the installer launches, install it for all users, and accept all defaults. Complete the installation steps.
 
 4. To open pgAdmin, use the Windows Search utility. Type `pgAdmin`.
 
@@ -377,8 +381,6 @@ PgAdmin greatly simplifies database administration and configuration tasks by pr
     - Open Explorer and rename the  `C:\instantclient_12_2` folder to `C:\instantclient`.
     - Launch the script one more time for install path validation purposes.
     - If the previous steps were successful, the script should be able to locate **oci.dll** under `C:\instantclient\oci.dll`.
-
-        >**Note**: If the script still cannot find `oci.dll`, rename the Instant Client extract folder name to `C:\instantclient` exactly.
 
     ![The image shows the script expects an exact Instant Client install path.](media/ps-validation-path-instant-client.png "Instant Client install path")
 

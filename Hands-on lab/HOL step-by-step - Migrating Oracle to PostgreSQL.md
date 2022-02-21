@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-September 2021
+February 2022
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -29,10 +29,10 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Overview](#overview)
   - [Solution architecture](#solution-architecture)
   - [Requirements](#requirements)
-  - [Exercise 1: Setup Oracle 18c Express Edition](#exercise-1-setup-oracle-18c-express-edition)
-    - [Task 1: Create the Northwind database in Oracle 18c XE](#task-1-create-the-northwind-database-in-oracle-18c-xe)
+  - [Exercise 1: Setup Oracle 21c Express Edition](#exercise-1-setup-oracle-21c-express-edition)
+    - [Task 1: Create the Northwind database in Oracle 21c XE](#task-1-create-the-northwind-database-in-oracle-21c-xe)
     - [Task 2: Configure the Starter Application to use Oracle](#task-2-configure-the-starter-application-to-use-oracle)
-  - [Exercise 2: Assess the Oracle 18c Database before Migrating to PostgreSQL](#exercise-2-assess-the-oracle-18c-database-before-migrating-to-postgresql)
+  - [Exercise 2: Assess the Oracle 21c Database before Migrating to PostgreSQL](#exercise-2-assess-the-oracle-21c-database-before-migrating-to-postgresql)
     - [Task 1: Update Statistics and Identify Invalid Objects](#task-1-update-statistics-and-identify-invalid-objects)
   - [Exercise 3: Prepare to Migrate the Oracle database to PostgreSQL](#exercise-3-prepare-to-migrate-the-oracle-database-to-postgresql)
     - [Task 1: Prepare the PostgreSQL instance using pgAdmin](#task-1-prepare-the-postgresql-instance-using-pgadmin)
@@ -82,25 +82,21 @@ The solution begins by installing and using ora2pg to assess the task of migrati
 
     >**Note**: If you find that your Visual Studio 2019 VM image comes with Visual Studio 2017, and not 2019, you will need to manually install 2019 Community from [here](https://visualstudio.microsoft.com/downloads/). Ensure that the **ASP.NET and web development** and **Azure development** Workloads are enabled for your installation.
 
-## Exercise 1: Setup Oracle 18c Express Edition
+## Exercise 1: Setup Oracle 21c Express Edition
 
 Duration: 45 minutes
 
 In this exercise, you will load a sample database supporting the application. Ensure that you installed Oracle XE, Oracle Data Access Components, and Oracle SQL Developer, as detailed in the Before the Hands-on Lab documents.
 
-### Task 1: Create the Northwind database in Oracle 18c XE
+### Task 1: Create the Northwind database in Oracle 21c XE
 
 WWI has provided you with a copy of their application, including a database script to create their Oracle database. They have asked that you use this as a starting point for migrating their database and application to Azure SQL DB. In this task, you will create a connection to the Oracle database on your Lab VM.
 
-1. In a web browser on LabVM, download a copy of the [Migrating Oracle to  Azure SQL and PostgreSQL upgrade and migration MCW repo](https://github.com/microsoft/MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL/archive/refs/heads/master.zip).
-
-2. Unzip the contents to **C:\handsonlab**.
-
-3. Launch SQL Developer from the `C:\Tools\sqldeveloper` path from earlier. In the **Database Connection** window, select **Create a Connection Manually**.
+1. Launch SQL Developer from the `C:\Tools\sqldeveloper` path from earlier. In the **Database Connection** window, select **Create a Connection Manually**.
 
    ![Manual connection creation in Oracle SQL Developer.](./media/create-connection-sql-developer.png "SQL Developer add connection manually")
 
-4. Provide the following parameters to the **New / Select Database Connection** window. Select **Connect** when you are complete.
+2. Provide the following parameters to the **New / Select Database Connection** window. Select **Connect** when you are complete.
 
    - **Name**: Northwind
    - **Username**: system
@@ -109,19 +105,19 @@ WWI has provided you with a copy of their application, including a database scri
 
    ![Northwind connection in SQL Developer.](./media/new-oracle-connection-sqldeveloper.png "Northwind connection")
 
-5. Once the connection completes, select the **Open File** icon (1). Navigate to `C:\handsonlab\MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL-master\Hands-on lab\lab-files\starter-project\Oracle Scripts\1.northwind.oracle.schema`. Then, execute the DDL statements (2).
+3. Once the connection completes, select the **Open File** icon (1). Navigate to `C:\handsonlab\MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL-master\Hands-on lab\lab-files\starter-project\Oracle Scripts\1.northwind.oracle.schema`. Then, execute the DDL statements (2).
 
    ![Execute schema creation script in SQL Developer.](./media/execute-first-northwind-sql-script.png "Schema creation script")
 
-6. Right-click the **Northwind** connection and select **Properties**. Then, edit the **Username** to `NW`, and the **Password** to `oracledemo123`. Select **Connect**. Note that you may be asked to enter the password again.
+4. Right-click the **Northwind** connection and select **Properties**. Then, edit the **Username** to `NW`, and the **Password** to `oracledemo123`. Select **Connect**. Note that you may be asked to enter the password again.
 
-7. In the Open File dialog, navigate to `C:\handsonlab\MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL-master\Hands-on lab\lab-files\starter-project\Oracle Scripts`, select the file `2.northwind.oracle.tables.views.sql`, and then select **Open**.
+5. In the Open File dialog, navigate to `C:\handsonlab\MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL-master\Hands-on lab\lab-files\starter-project\Oracle Scripts`, select the file `2.northwind.oracle.tables.views.sql`, and then select **Open**.
 
-8. As you did previously, run the script. Note that SQL Developer provides an output pane to view any errors.
+6. As you did previously, run the script. Note that SQL Developer provides an output pane to view any errors.
 
    ![Script output of the second Northwind database script.](./media/northwind-script-2-output.png "SQL Developer output pane")
 
-9. Repeat steps 7 - 8, replacing the file name in step 26 with each of the following:
+7. Repeat steps 7 - 8, replacing the file name in step 26 with each of the following:
 
     - `3.northwind.oracle.packages.sql`
 
@@ -137,9 +133,9 @@ WWI has provided you with a copy of their application, including a database scri
 
     - `5.northwind.oracle.seed.sql`
 
-      > **Important**: This query can take several minutes to run, so make sure you wait until you see the **Commit complete** message in the output window before executing the next file.
+      > **Important**: This query can take several minutes to run, so make sure you wait until you see the **Commit complete** message.
 
-10. After you finish running these scripts, validate that the database objects were created. The image below demonstrates the Tables and the Views created by the script.
+8. After you finish running these scripts, validate that the database objects were created. The image below demonstrates the Tables and the Views created by the script.
 
     ![Presenting the tables and views generated by the Oracle scripts.](./media/views-table-validation.png "Oracle tables and views")
 
@@ -147,7 +143,7 @@ WWI has provided you with a copy of their application, including a database scri
 
 In this task, you will add the necessary configuration to the `NorthwindMVC` solution to connect to the Oracle database you created in the previous task.
 
-1. On your LabVM, navigate to `C:\handsonlab\MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL\Hands-on lab\lab-files\starter-project`. Launch `NorthwindMVC.sln`.
+1. On your LabVM, navigate to `C:\handsonlab\MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL-master\Hands-on lab\lab-files\starter-project`. Launch `NorthwindMVC.sln`.
 
    ![Launch NorthwindMVC.sln from the downloaded lab files.](./media/launch-northwind-solution.png "NorthwindMVC Visual Studio 2019 Solution")
 
@@ -173,17 +169,17 @@ In this task, you will add the necessary configuration to the `NorthwindMVC` sol
    }
    ```
 
-7. Run the solution by selecting the green **Start** button on the Visual Studio toolbar.
+7. Run the solution by selecting the green **IIS Express** button on the Visual Studio toolbar. Trust the IIS self-signed certificate.
 
-   ![Start is selected on the toolbar.](./media/visual-studio-toolbar-start.png "Run the solution")
+   ![IIS Express is selected on the toolbar.](./media/visual-studio-toolbar-iis.png "Run the solution")
 
-8. You should see the Northwind Traders Dashboard load in your browser.
+8. You should see the Northwind Traders Dashboard load in your browser. If you are unable to see the dashboard chart, try downloading a browser like [Microsoft Edge](https://www.microsoft.com/edge/business/download) to facilitate your viewing.
 
    ![The Northwind Traders Dashboard is visible in a browser.](./media/northwind-traders-dashboard.png "View the dashboard")
 
 9. Close the browser to stop debugging the application, and return to Visual Studio.
 
-## Exercise 2: Assess the Oracle 18c Database before Migrating to PostgreSQL
+## Exercise 2: Assess the Oracle 21c Database before Migrating to PostgreSQL
 
 Duration: 15 minutes
 
@@ -191,7 +187,9 @@ In this exercise, you will prepare the existing Oracle database for its migratio
 
 ### Task 1: Update Statistics and Identify Invalid Objects
 
-1. Run the following statements in SQL Developer.
+1. Create a new SQL script by pressing the **New** button at the upper left-hand corner of the application and selecting **SQL File**. Title the new file `UpdateStatistics.sql`.
+
+2. Paste the following statements into the file and run the file.
 
     ```sql
     -- 21c script
@@ -202,7 +200,9 @@ In this exercise, you will prepare the existing Oracle database for its migratio
 
     >**Note**: This script can take over one minute to run. Ensure that you receive confirmation that the script has executed successfully.
 
-2. Now, we will utilize a query that lists database objects that are invalid and unsupported by the ora2pg utility. It is recommended to fix any errors and compile the objects before starting the migration process.
+3. Create a new file titled `FindInvalid.sql`.
+
+4. Now, we will utilize a query that lists database objects that are invalid and unsupported by the ora2pg utility. It is recommended to fix any errors and compile the objects before starting the migration process.
 
     ```sql
     SELECT owner, object_type, object_name
@@ -288,11 +288,11 @@ Our configuration in pgAdmin is now complete.
 
     >**Note**: In some cases, ora2pg may fail to find its configuration file. In scenarios such as these, you may need to provide the -c flag with the name of the actual configuration file in your ora2pg directory.
 
-    >**Note**: You may receive an error that ora2pg cannot find Perl. If this is the case, just ensure that `C:\Strawberry\perl\bin` has been added to the PATH variable.
-
     ```cmd
-    ora2pg -c ora2pg_dist.conf --init_project nw_migration
+    ora2pg -c ora2pg.conf.dist --init_project nw_migration
     ```
+
+    >**Note**: You may receive an error that ora2pg cannot find Perl. If this is the case, just ensure that `C:\Strawberry\perl\bin` has been added to the PATH variable.
 
 3. Verify that the command succeeded. There should be a folder with the same name as your migration project in the C:\ora2pg directory.
 
@@ -387,7 +387,7 @@ Exercise 3 covered planning and assessment steps.  To start the database migrati
 
     >**Note**: Open the **schema\tables\NW-psql.sql** file. Notice that all table names are lowercase--using uppercase names for tables and/or columns will require quotations whenever referenced. Furthermore, ora2pg converts data types fairly well. If you have strong knowledge of the stored data, you can modify types to improve performance. You can export individual table schemas in separate files to facilitate the review.
 
-3. Execute the PostgreSQL commands against the PostgreSQL database. You can use any PostgreSQL database client. One way to execute a SQL file against a PostgreSQL database is through the **psql** utility located at the `C:\Program Files\pgAdmin 4\v5\runtime` directory. Just as we did in task 4, append this location to the system PATH variable. Note that you will need to restart your command prompt windows for the change to take effect.
+3. Execute the PostgreSQL commands against the PostgreSQL database. You can use any PostgreSQL database client. One way to execute a SQL file against a PostgreSQL database is through the **psql** utility located at the `C:\Program Files\pgAdmin 4\v6\runtime` directory. Just as we did in task 4, append this location to the system PATH variable. **Note that you will need to restart your command prompt windows for the change to take effect.**
 
     ![Screenshot showing the process to add psql to the PATH variable.](./media/adding-psql-loc-to-path-x64.png "Adding psql to PATH variable")
 
@@ -408,7 +408,7 @@ Exercise 3 covered planning and assessment steps.  To start the database migrati
 
     ![The image shows the create table statements being executed.](media/psql-create-table-results.png "PSQL Create Table Statements")
 
-    >**Note**: If you receive an error like "could not find a 'psql' to execute", use the entire path to the executable in the command (`"C:\Program Files\pgAdmin 4\v5\runtime\psql"`)
+    >**Note**: If you receive an error like "could not find a 'psql' to execute", use the entire path to the executable in the command (`"C:\Program Files\pgAdmin 4\v6\runtime\psql"`)
 
     - Navigate to pgAdmin. Refresh the database objects.  Verify the tables exist in pgAdmin.
   
@@ -418,11 +418,7 @@ Exercise 3 covered planning and assessment steps.  To start the database migrati
 
 In this Task, we will use the ora2pg utility to migrate table data to the PostgreSQL instance, now that we have created the table schema on the landing zone.
 
-1. Open Explorer and navigate to `C:\ora2pg\nw_migration\config`. Edit the **ora2pg.conf** file. Make sure the PG_DSN, PG_USER, and PG_PWD parameters have the correct values.
-
-    ![The image shows the PG server parameters to connect to Azure PostgreSQL.](media/ora2pg-setup-psql-config.png "Update the PG config")
-
-2. Navigate to `C:\ora2pg\nw_migration\data` in command prompt and enter the following command.
+1. Navigate to `C:\ora2pg\nw_migration\data` in command prompt and enter the following command.
 
     ```cmd
     cd C:\ora2pg\nw_migration\data
@@ -503,44 +499,34 @@ Views are not referenced by the sample application, but we are including this ta
 
     ![The image shows the Oracle views exported to SQL files in Explorer.](media/valid-view-export.png "View SQL Statements")
 
-2. Before we invoke NW-views.sql, we will need to make changes to four files. This is because our application uses a **to_date() function that is not supported in PostgreSQL**. We will need to replace the command in the code with the equivalent **DATE()** function in PostgreSQL.
+2. Before we invoke NW-views.sql, we will need to make changes to four files. This is because our application uses a `to_date()` function that is not supported in PostgreSQL. We will need to replace the command in the code with the equivalent `DATE()` function in PostgreSQL.
 
-3. Open **SALES_TOTALS_BY_AMOUNT_NW-views.sql** and replace the existing last line:
+   1. Open **SALES_TOTALS_BY_AMOUNT_NW-views.sql**. In the last line, replace `to_date(Orders.ShippedDate, 'MM/DD/YYYY')` with `DATE(Orders.ShippedDate)`.
 
-    ![Screenshot showing the function that needs to be replaced for sales totals by amounts.](./media/sales-totals-amount-view-old.png "to_date function")
+   2. Open **QUARTERLY_ORDERS_NW-views.sql** and replace `to_date(Orders.OrderDate, 'MM/DD/YYYY')` with `DATE(Orders.OrderDate)`.
 
-    with this:
+   3. Open **PRODUCT_SALES_FOR_1997_NW-views.sql** and replace `to_date(Orders.ShippedDate, 'MM/DD/YYYY')` with `DATE(Orders.ShippedDate)`.
 
-    ![Screenshot showing the new view for Sales Total Amounts.](./media/sales-totals-amount-view-new.png "Sales Totals amounts new view")
+   4. Open **SALES_BY_CATEGORY_NW-views.sql** and replace `to_date(Orders.OrderDate, 'MM/DD/YYYY')` with `DATE(Orders.OrderDate)`.
 
-4. Open **QUARTERLY_ORDERS_NW-views.sql** and replace **to_date(Orders.OrderDate, 'MM/DD/YYYY')** with **DATE(Orders.OrderDate)**.
-
-    >**Note**: The other two applications of the `to_date()` function in that file are acceptable, as seen below.
-
-    ![Testing to_date() function from pgAdmin.](./media/to-date-demo.png "to_date() sample")
-
-5. Open **PRODUCT_SALES_FOR_1997_NW-views.sql** and replace **to_date(Orders.ShippedDate, 'MM/DD/YYYY')** with **DATE(Orders.ShippedDate)**.
-
-6. Open **SALES_BY_CATEGORY_NW-views.sql** and replace **to_date(Orders.OrderDate, 'MM/DD/YYYY')** with **DATE(Orders.OrderDate)**.
-
-7. Now that all modifications are complete, run the NW-views.sql file in psql:
+3. Now that all modifications are complete, run the NW-views.sql file in psql:
 
     ```cmd
     psql -U NW@[DB Name] -h [DB Name].postgres.database.azure.com -d NW < NW-views.sql
     ```
 
-8. With that, we have migrated views.
+4. With that, we have migrated views.
 
-    - Navigate to the **Query Editor** and test these migrated views.
+    - Navigate to the **Query Editor**.
     - Utilize the query below, which will show data where **productsales** is greater than 5000. You can envision how this would be useful in an organization to identify successful items in a given year (1997).
 
-    ```sql
-    SELECT *
-    FROM product_sales_for_1997
-    WHERE productsales > 5000;
-    ```
+        ```sql
+        SELECT *
+        FROM product_sales_for_1997
+        WHERE productsales > 5000;
+        ```
 
-9. When the query is executed, you should see the following result set, with 42 rows. This shows that we have successfully migrated the views.
+5. When the query is executed, you should see the following result set, with 42 rows. This shows that we have successfully migrated the views.
 
     ![Result set from query involving the product_sales_for_1997 view.](./media/1997-view-result-set.png "Result set")
 
@@ -572,15 +558,7 @@ Our application utilizes a single stored procedure, so we must be able to migrat
 
     A second detail to keep in mind is NULLs vs. empty strings. In PostgreSQL, they are handled differently. This is a small distinction in Oracle that can be overlooked, leading to incomplete query results.
 
-4. We will need to edit the procedure's parameter list, and we can do this by using a refcursor. Replace the existing last parameter of the procedure:
-
-    ![Screenshot showing old SP parameter list.](./media/proc-param-list.png "Old parameter list")
-
-    with this:
-
-    ![Screenshot showing new SP parameter list.](./media/proc-param-list-new.png "New parameter list")
-
-    Save your edits.
+4. We will need to edit the procedure's parameter list, and we can do this by using a refcursor. Replace the existing last parameter of the procedure, `cur_OUT INOUT PKGENTLIB_ARCHITECTURE.CURENTLIB_ARCHITECTURE`, with `cur_OUT INOUT REFCURSOR`.
 
 5. A useful PostgreSQL extension that facilitates greater compatibility with Oracle database objects is **orafce**, which is provided with Azure Database for PostgreSQL. To enable it, navigate to pgAdmin, enter your master password, and connect to your PostgreSQL instance. Then, enter the following command into the query editor and execute it:
 
@@ -690,19 +668,19 @@ In this task, we will be recreating the ADO.NET data models to accurately repres
     }
     ```
 
-11. Build the solution. Ensure that no errors appear. We added `SalesByYearDbSet` to **DataContext** because **HomeController.cs** references it. We deleted the controllers and their associated views because we will scaffold them again from the models.
+10. Build the solution. Ensure that no errors appear. We added `SalesByYearDbSet` to **DataContext** because **HomeController.cs** references it. We deleted the controllers and their associated views because we will scaffold them again from the models.
 
     > **Note**: If you encounter build errors, verify that the `_ViewImports.cshtml` file in the `Views` directory was not accidentally deleted. If it was, simply copy the [file from the project GitHub repository](https://raw.githubusercontent.com/microsoft/MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL/master/Hands-on%20lab/lab-files/starter-project/NorthwindMVC/Views/_ViewImports.cshtml).
 
-12. Right-click the **Controllers** folder and select **Add** (1). Select **New Scaffolded Item...** (2).
+11. Right-click the **Controllers** folder and select **Add** (1). Select **New Scaffolded Item...** (2).
 
     ![Adding a new scaffolded item.](./media/add-scaffolded-item.png "New scaffolded item")
 
-13. Select **MVC Controller with views, using Entity Framework**. Then, select **Add**.
+12. Select **MVC Controller with views, using Entity Framework**. Then, select **Add**.
 
     ![Add MVC Controller with Views, using Entity Framework.](./media/add-mvc-with-ef.png "MVC Controller with Views, using Entity Framework")
 
-14. In the **ADD MVC Controller with views, using Entity Framework** dialog box, provide the following details. Then, select **Add**. Visual Studio will build the project.
+13. In the **ADD MVC Controller with views, using Entity Framework** dialog box, provide the following details. Then, select **Add**. Visual Studio will build the project.
 
     - **Model class**: Select `Customer`.
     - **Data context class**: Select `DataContext`.
@@ -711,7 +689,7 @@ In this task, we will be recreating the ADO.NET data models to accurately repres
 
     ![Scaffolding controllers and views from model classes.](./media/customer-scaffold-views.png "Scaffolding controllers and views")
 
-15. Repeat steps 12-14, according to the following details:
+14. Repeat steps 11-13, according to the following details:
 
     - **EmployeesController.cs**
       - Based on the **Employee** model class
@@ -722,7 +700,7 @@ In this task, we will be recreating the ADO.NET data models to accurately repres
     - **SuppliersController.cs**
       - Based on the **Supplier** model class
 
-16. Navigate to **Startup.cs**. Ensure that PostgreSQL is configured as the correct provider and the appropriate connection string is referenced in the **ConfigureServices** method. 
+15. Navigate to **Startup.cs**. Ensure that PostgreSQL is configured as the correct provider and the appropriate connection string is referenced in the **ConfigureServices** method. 
 
     ```csharp
     // This method gets called by the runtime. Use this method to add services to the container.
@@ -787,15 +765,15 @@ With PostgreSQL, stored procedures cannot return output values without a cursor.
     var salesByYear = await _context.SalesByYearDbSet.FromSqlRaw("SELECT * FROM SALESBYYEAR_func(@beginDate, @endDate);", beginDate, endDate).ToListAsync();
     ```
 
-6. Navigate to the `Models` folder in the Visual Studio Solution. In the `SalesByYear.cs` class, update the type of the `OrderID` property to `long`.
+6. Navigate to the `Models` folder in the Visual Studio Solution. In the `SalesByYear.cs` file, update the type of the `OrderID` property to `long`.
 
     ```csharp
     public long OrderID { get; set; }
     ```
 
-7. Run the application again by selecting the green Start button in the Visual Studio toolbar.
+7. Run the application again by selecting the green IIS Express button in the Visual Studio toolbar.
 
-    ![The Start button is highlighted on the Visual Studio toolbar.](./media/visual-studio-toolbar-start.png "Select Start")
+    ![The IIS Express button is highlighted on the Visual Studio toolbar.](./media/visual-studio-toolbar-iis.png "Select IIS Express")
 
 8. Verify the graph is showing correctly on the Northwind Traders dashboard.
 

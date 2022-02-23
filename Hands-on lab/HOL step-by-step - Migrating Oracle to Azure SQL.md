@@ -18,7 +18,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2020 Microsoft Corporation. All rights reserved.
+© 2022 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -218,7 +218,7 @@ In this exercise, you will prepare the existing Oracle database for its migratio
 
     >**Note**: This script can take over one minute to run. Ensure that you receive confirmation that the script has executed successfully.
 
-5. Now, we will utilize a query that lists invalid database objects. It is recommended to fix any errors and compile the objects before starting the migration process. Create a new file named `show-invalid-objects.sql` and save it in the same directory. Run this query to find all of the invalid objects.
+5. Now, we will utilize a query that lists invalid database objects. It is recommended to fix any errors and compile the objects before starting the migration process. Create a new file named `show-invalid-objects.sql` and save it in the same directory. Run this query to find all the invalid objects.
 
     ```sql
     SELECT owner, object_type, object_name
@@ -333,7 +333,7 @@ In this exercise, you will migrate the Oracle database to Azure SQL DB using SSM
 
     ![The successful connection message is highlighted in the Output window.](./media/ssma-connect-to-azure-sql.png "View the successful connection message")
 
-20. Navigate the lower left hand pane in the SSMA tool. In the Azure SQL Database Metadata Explorer, expand the server node, then Databases. You should see Northwind listed.
+20. Navigate the lower left-hand pane in the SSMA tool. In the Azure SQL Database Metadata Explorer, expand the server node, then Databases. You should see Northwind listed.
 
     ![Northwind is highlighted under Databases in Azure SQL Database Metadata Explorer.](./media/azure-sql-db-metadata-explorer.png "Verify the Northwind listing")
 
@@ -506,7 +506,7 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets A
 
     ![Opening the Package Manager console in Visual Studio.](./media/open-pmc.png "Opening the Package Manager Console")
 
-5. **Scaffold-DbContext** generates entity types.Enter the following command in the Package Manager console to create the models. The `-Force` flag eliminates the need to manually clear the `Data` directory.
+5. **Scaffold-DbContext** generates entity types. Enter the following command in the Package Manager console to create the models. The `-Force` flag eliminates the need to manually clear the `Data` directory.
 
     ```powershell
     Scaffold-DbContext Name=ConnectionStrings:AzureSqlConnectionString Microsoft.EntityFrameworkCore.SqlServer -OutputDir Data -Context DataContext -Schemas NW -Force
@@ -673,7 +673,7 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets A
     - **Data source**: Leave Microsoft SQL Server (SqlClient).
     - **Server name**: Enter the DNS name of the Azure SQL DB instance.
     - **Authentication**: Select SQL Server Authentication.
-    - **Username**: demouser.
+    - **Username**: demouser
     - **Password**: Provide the password you configured for `demouser`.
     - **Connect to a database**: Choose Select or enter a database name, and enter Northwind.
     - Select **Test Connection** to verify your settings are correct, and select **OK** to close the successful connection dialog.
@@ -686,7 +686,7 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets A
 
     ![The newly added SQL Server connection is selected in Server Explorer, and New Query is highlighted in the shortcut menu.](./media/visual-studio-server-explorer-data-connections-new-query.png "Select New Query")
 
-20. Select and copy all of the text from the `SALES_BY_YEAR_fix.sql` file (click CTRL+A, CTRL+C in the `SALES_BY_YEAR_fix.sql` file).
+20. Select and copy all the text from the `SALES_BY_YEAR_fix.sql` file (enter CTRL+A, CTRL+C in the `SALES_BY_YEAR_fix.sql` file).
 
 21. Paste (CTRL+V) the copied text into the new Query window.
 
@@ -803,7 +803,7 @@ In this task, you will install the AdventureWorks database in SQL Server 2008 R2
 
 15. This will create the `AdventureWorksDW2008R2` database. When the script is done running, you will see output similar to the following in the results pane.
 
-    ![Output is displayed in the results pane. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](./media/ssms-query-instawdwdb-script-output.png "View the script output")
+    ![Output is displayed in the results pane. At this time, we are unable to capture all the information in the window. Future versions of this course should address this.](./media/ssms-query-instawdwdb-script-output.png "View the script output")
 
 16. Expand **Databases** in Object Explorer, right-click the `AdventureWorksDW2008R2` database, and select **Rename**.
 
@@ -1289,7 +1289,7 @@ In this task, you will create a new table based on the existing `FactResellerSal
 
     ![Various information is highlighted on the Messages tab of the Results pane.](./media/ssms-query-results-messages-statistics-io.png "Compare the information")
 
-15. You are now done with the SqlServer2008 VM. Log off of the VM to close the RDP session.
+15. You are now done with the SqlServer2008 VM. Log off the VM to close the RDP session.
 
 ## After the hands-on lab
 

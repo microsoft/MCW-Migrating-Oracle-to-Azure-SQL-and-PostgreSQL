@@ -111,13 +111,13 @@ This lab uses an ARM template to automate the setup of lab resources. In this ta
 
 2. Before you deploy the ARM template, you need to provide multiple parameters.
 
-   - **Subscription**: Select the Azure subscription you are using to complete the lab
-   - **Resource group**: Select the hands-on-lab-SUFFIX resource group you created earlier
-   - **Region**: This will auto-populate depending on the region you created your resource group in
-   - **Unique Suffix**: Since certain Azure resources require globally unique names, provide a short suffix that does not end with a number or hyphen
-   - **VM Password**: This will be used for the Lab VM, and if you are completing the optional homogenous migration, the SQL Server 2008 R2 VM
-   - **Postgre SQL Password**: This is the administrator password for the PostgreSQL instance. If you don't provide a value, it will just be the `VM Password` you provided
-   - **Azure SQL Password**: This is the administrator password for the Azure SQL Database instance. Again, it will default to the `VM Password` value
+   - **Subscription**: Select the Azure subscription you are using to complete the lab.
+   - **Resource group**: Select the hands-on-lab-SUFFIX resource group you created earlier.
+   - **Region**: This will auto-populate depending on the region you created your resource group in.
+   - **Unique Suffix**: Since certain Azure resources require globally unique names, provide a short suffix that does not end with a number or hyphen.
+   - **VM Password**: This will be used for the Lab VM, and if you are completing the optional homogenous migration, the SQL Server 2008 R2 VM.
+   - **Postgre SQL Password**: This is the administrator password for the PostgreSQL instance. If you don't provide a value, it will just be the `VM Password` you provided.
+   - **Azure SQL Password**: This is the administrator password for the Azure SQL Database instance. Again, it will default to the `VM Password` value.
 
     ![Deploy the ARM template with the parameters shown above.](./media/no-optional-resource-deployment-arm.png "ARM template deployment parameters")
 
@@ -156,7 +156,7 @@ In this task, you will create an RDP connection to your Lab virtual machine (VM)
 7. Enter the following credentials when prompted:
 
     - **Username**: demouser
-    - **Password**: The password you provided when provisioning the ARM template resources
+    - **Password**: The password you provided when provisioning the ARM template resources.
 
 8. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
 
@@ -290,7 +290,7 @@ PgAdmin greatly simplifies database administration and configuration tasks by pr
 
     ![Screenshot to show the process to install ora2pg.](./media/running-ora2pg-install-script.png "Installing ora2pg")
 
-    >**Note:** If you are warned about a PS execution policy change, accept ALL of the policy changes.
+    >**Note:** If you are warned about a PS execution policy change, **accept all** the policy changes.
 
     You should see the script executing.
 
@@ -394,7 +394,7 @@ In this task, you will create an RDP connection to the SqlServer2008 VM and disa
 7. Enter the following credentials when prompted:
 
     - **Username**: demouser
-    - **Password**: The password you provided when provisioning the ARM template resources
+    - **Password**: The password you provided when provisioning the ARM template resources.
 
 8. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
 

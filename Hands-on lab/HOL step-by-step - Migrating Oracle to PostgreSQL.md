@@ -101,7 +101,7 @@ WWI has provided you with a copy of their application, including a database scri
    - **Name**: Northwind
    - **Username**: system
    - **Password**: Password set in the ARM template
-   - Keep the **Details** at their defaults
+   - Keep the **Details** at their defaults.
 
    ![Northwind connection in SQL Developer.](./media/new-oracle-connection-sqldeveloper.png "Northwind connection")
 
@@ -271,7 +271,7 @@ Our configuration in pgAdmin is now complete.
 
 ### Task 2: Create an ora2pg project structure
 
-**Ora2pg** allows database objects to be exported in multiple files so that is simple to organize and review changes. In this task, you will create the project structure that will make it easy to do this.  
+**Ora2pg** allows database objects to be exported in multiple files so that it is simple to organize and review changes. In this task, you will create the project structure that will make it easy to do this.  
 
 1. Open a command prompt window and navigate to the directory `C:\ora2pg`, where we will create the project structure.
 
@@ -501,13 +501,13 @@ Views are not referenced by the sample application, but we are including this ta
 
 2. Before we invoke NW-views.sql, we will need to make changes to four files. This is because our application uses a `to_date()` function that is not supported in PostgreSQL. We will need to replace the command in the code with the equivalent `DATE()` function in PostgreSQL.
 
-   1. Open **SALES_TOTALS_BY_AMOUNT_NW-views.sql**. In the last line, replace `to_date(Orders.ShippedDate, 'MM/DD/YYYY')` with `DATE(Orders.ShippedDate)`.
+    - Open **SALES_TOTALS_BY_AMOUNT_NW-views.sql**. In the last line, replace `to_date(Orders.ShippedDate, 'MM/DD/YYYY')` with `DATE(Orders.ShippedDate)`.
 
-   2. Open **QUARTERLY_ORDERS_NW-views.sql** and replace `to_date(Orders.OrderDate, 'MM/DD/YYYY')` with `DATE(Orders.OrderDate)`.
+    - Open **QUARTERLY_ORDERS_NW-views.sql** and replace `to_date(Orders.OrderDate, 'MM/DD/YYYY')` with `DATE(Orders.OrderDate)`.
 
-   3. Open **PRODUCT_SALES_FOR_1997_NW-views.sql** and replace `to_date(Orders.ShippedDate, 'MM/DD/YYYY')` with `DATE(Orders.ShippedDate)`.
+    - Open **PRODUCT_SALES_FOR_1997_NW-views.sql** and replace `to_date(Orders.ShippedDate, 'MM/DD/YYYY')` with `DATE(Orders.ShippedDate)`.
 
-   4. Open **SALES_BY_CATEGORY_NW-views.sql** and replace `to_date(Orders.OrderDate, 'MM/DD/YYYY')` with `DATE(Orders.OrderDate)`.
+    - Open **SALES_BY_CATEGORY_NW-views.sql** and replace `to_date(Orders.OrderDate, 'MM/DD/YYYY')` with `DATE(Orders.OrderDate)`.
 
 3. Now that all modifications are complete, run the NW-views.sql file in psql:
 

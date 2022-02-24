@@ -9,7 +9,7 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-September 2021
+February 2022
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -18,7 +18,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2021 Microsoft Corporation. All rights reserved.
+© 2022 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -111,19 +111,19 @@ This lab uses an ARM template to automate the setup of lab resources. In this ta
 
 2. Before you deploy the ARM template, you need to provide multiple parameters.
 
-   - **Subscription**: Select the Azure subscription you are using to complete the lab
-   - **Resource group**: Select the hands-on-lab-SUFFIX resource group you created earlier
-   - **Region**: This will auto-populate depending on the region you created your resource group in
-   - **Unique Suffix**: Since certain Azure resources require globally unique names, provide a short suffix that does not end with a number or hyphen
-   - **VM Password**: This will be used for the Lab VM, and if you are completing the optional homogenous migration, the SQL Server 2008 R2 VM
-   - **Postgre SQL Password**: This is the administrator password for the PostgreSQL instance. If you don't provide a value, it will just be the `VM Password` you provided
-   - **Azure SQL Password**: This is the administrator password for the Azure SQL Database instance. Again, it will default to the `VM Password` value
+   - **Subscription**: Select the Azure subscription you are using to complete the lab.
+   - **Resource group**: Select the hands-on-lab-SUFFIX resource group you created earlier.
+   - **Region**: This will auto-populate depending on the region you created your resource group in.
+   - **Unique Suffix**: Since certain Azure resources require globally unique names, provide a short suffix that does not end with a number or hyphen.
+   - **VM Password**: This will be used for the Lab VM, and if you are completing the optional homogenous migration, the SQL Server 2008 R2 VM.
+   - **Postgre SQL Password**: This is the administrator password for the PostgreSQL instance. If you don't provide a value, it will just be the `VM Password` you provided.
+   - **Azure SQL Password**: This is the administrator password for the Azure SQL Database instance. Again, it will default to the `VM Password` value.
 
     ![Deploy the ARM template with the parameters shown above.](./media/no-optional-resource-deployment-arm.png "ARM template deployment parameters")
 
 3. Select **Review + create**. Let validation pass.
 
-4. Select **Create**. It should take 10-20 minutes to deploy, depending on whether you deploy the optional homogenous migration resources.
+4. Select **Create**. It should take 10-20 minutes to deploy.
 
 ### Task 4: Connect to the Lab VM
 
@@ -156,7 +156,7 @@ In this task, you will create an RDP connection to your Lab virtual machine (VM)
 7. Enter the following credentials when prompted:
 
     - **Username**: demouser
-    - **Password**: The password you provided when provisioning the ARM template resources
+    - **Password**: The password you provided when provisioning the ARM template resources.
 
 8. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
 
@@ -176,6 +176,10 @@ In this task, you will create an RDP connection to your Lab virtual machine (VM)
 
 12. Close the Server Manager.
 
+13. In a web browser on LabVM, download a copy of the [Migrating Oracle to  Azure SQL and PostgreSQL upgrade and migration MCW repo](https://github.com/microsoft/MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL/archive/refs/heads/master.zip).
+
+14. Unzip the contents to **C:\handsonlab**.
+
 ### Task 5: Install Oracle XE
 
 If you want to complete the Oracle to PostgreSQL or Oracle to Azure SQL Database labs, you need to complete this step to install the Express Edition (XE) of Oracle database.
@@ -188,11 +192,11 @@ The same applies to Tasks 6 and 7.
 
    ![This image demonstrates how to download Oracle 21c XE from the Oracle Database XE Downloads page.](./media/21c-oracle-downlaod.png "Oracle 21c download")
 
-3. Accept the license agreement, if you are presented with one.
+3. Accept the license agreement and sign in, if necessary.
 
 4. Extract the ZIP file. Right-click `setup.exe`, and select **Run as administrator**.
 
-5. Select **Next** to step through each screen of the installer, accepting the license agreement and default values, until you get to the **Specify Database Passwords** screen.
+5. Select **Next** to step through each screen of the installer, accepting the license agreement and default values, until you get to the **Oracle Database Information** screen.
 
 6.  On the **Oracle Database Information** screen, set the password to **Password.1!!**, and select **Next**.
 
@@ -212,7 +216,7 @@ The same applies to Tasks 6 and 7.
 
    ![Accept the license agreement and ODAC122010_x64.zip are highlighted on the 64-bit Oracle Data Access Components (ODAC) Downloads screen.](./media/oracle-odac-download.png "64-bit Oracle Data Access Components (ODAC) Downloads screen")
 
-3. Accept the license agreement, and then select **Download ODAC122011_x64.zip**.
+3. Create/log into your Oracle account, accept the license agreement, and then select **Download ODAC122011_x64.zip**.
 
    ![The Oracle license agreement dialog is displayed for downloading the Oracle Data Access Components.](media/oracle-odac-license-dialog.png "Download ODAC")
 
@@ -264,13 +268,13 @@ In this task, you will install Oracle SQL Developer, a common IDE to interact wi
 
 PgAdmin greatly simplifies database administration and configuration tasks by providing an intuitive GUI. Hence, we will be using it to create a new application user and test the migration.
 
-1. You will need to navigate to <https://www.pgadmin.org/download/pgadmin-4-windows/> to obtain **pgAdmin 4**. At the time of writing, **v5.5** is the most recent version. Select the link to the installer, as shown below.
+1. You will need to navigate to <https://www.pgadmin.org/download/pgadmin-4-windows/> to obtain **pgAdmin 4**. At the time of writing, **v6.5** is the most recent version. Select the link to the installer, as shown below.
 
-    ![The screenshot shows the correct version of the pgAdmin utility to be installed.](./media/pgadmin-5.5-install.png "pgAdmin 4 v5.5")
+    ![The screenshot shows the correct version of the pgAdmin utility to be installed.](./media/pgadmin-6.5-install.png "pgAdmin 4 v6.5")
 
-2. Download the **pgadmin4-5.5-x64.exe** file.
+2. Download the **pgadmin4-6.5-x64.exe** file.
 
-3. Once the installer launches, accept all defaults. Complete the installation steps.
+3. Once the installer launches, install it for all users, and accept all defaults. Complete the installation steps.
 
 4. To open pgAdmin, use the Windows Search utility. Type `pgAdmin`.
 
@@ -286,7 +290,7 @@ PgAdmin greatly simplifies database administration and configuration tasks by pr
 
     ![Screenshot to show the process to install ora2pg.](./media/running-ora2pg-install-script.png "Installing ora2pg")
 
-    >**Note:** If you are warned about a PS execution policy change, accept ALL of the policy changes.
+    >**Note:** If you are warned about a PS execution policy change, **accept all** the policy changes.
 
     You should see the script executing.
 
@@ -325,8 +329,6 @@ PgAdmin greatly simplifies database administration and configuration tasks by pr
     - Open Explorer and rename the  `C:\instantclient_12_2` folder to `C:\instantclient`.
     - Launch the script one more time for install path validation purposes.
     - If the previous steps were successful, the script should be able to locate **oci.dll** under `C:\instantclient\oci.dll`.
-
-        >**Note**: If the script still cannot find `oci.dll`, rename the Instant Client extract folder name to `C:\instantclient` exactly.
 
     ![The image shows the script expects an exact Instant Client install path.](media/ps-validation-path-instant-client.png "Instant Client install path")
 
@@ -392,7 +394,7 @@ In this task, you will create an RDP connection to the SqlServer2008 VM and disa
 7. Enter the following credentials when prompted:
 
     - **Username**: demouser
-    - **Password**: The password you provided when provisioning the ARM template resources
+    - **Password**: The password you provided when provisioning the ARM template resources.
 
 8. Select **Yes** to connect, if prompted that the identity of the remote computer cannot be verified.
 

@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-September 2021
+February 2022
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -18,7 +18,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2020 Microsoft Corporation. All rights reserved.
+© 2022 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -29,10 +29,10 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
   - [Overview](#overview)
   - [Solution architecture](#solution-architecture)
   - [Requirements](#requirements)
-  - [Exercise 1: Setup Oracle 18c Express Edition](#exercise-1-setup-oracle-18c-express-edition)
-    - [Task 1: Create the Northwind database in Oracle 18c XE](#task-1-create-the-northwind-database-in-oracle-18c-xe)
+  - [Exercise 1: Setup Oracle 21c Express Edition](#exercise-1-setup-oracle-21c-express-edition)
+    - [Task 1: Create the Northwind database in Oracle 21c XE](#task-1-create-the-northwind-database-in-oracle-21c-xe)
     - [Task 2: Configure the Starter Application to use Oracle](#task-2-configure-the-starter-application-to-use-oracle)
-  - [Exercise 2: Assess the Oracle 18c Database before Migrating to Azure SQL Database](#exercise-2-assess-the-oracle-18c-database-before-migrating-to-azure-sql-database)
+  - [Exercise 2: Assess the Oracle 21c Database before Migrating to Azure SQL Database](#exercise-2-assess-the-oracle-21c-database-before-migrating-to-azure-sql-database)
     - [Task 1: Update Statistics and Identify Invalid Objects](#task-1-update-statistics-and-identify-invalid-objects)
   - [Exercise 3: Migrate the Oracle database to Azure SQL Database](#exercise-3-migrate-the-oracle-database-to-azure-sql-database)
     - [Task 1: Migrate the Oracle database to Azure SQL Database using SSMA](#task-1-migrate-the-oracle-database-to-azure-sql-database-using-ssma)
@@ -88,19 +88,19 @@ For the homogenous migration, the solution begins with using the Microsoft Data 
   - Trial subscriptions will not work.
 - A virtual machine configured with Visual Studio 2019 Community edition.
 
-## Exercise 1: Setup Oracle 18c Express Edition
+## Exercise 1: Setup Oracle 21c Express Edition
 
 Duration: 45 minutes
 
 In this exercise, you will load a sample database supporting the application. Ensure that you installed Oracle XE, Oracle Data Access Components, and Oracle SQL Developer, as detailed in the [Before the Hands-on Lab document](Before%20the%20HOL%20-%20Migrating%20Oracle%20to%20Azure%20SQL%20and%20PostgreSQL.md).
 
-### Task 1: Create the Northwind database in Oracle 18c XE
+### Task 1: Create the Northwind database in Oracle 21c XE
 
 WWI has provided you with a copy of their application, including a database script to create their Oracle database. They have asked that you use this as a starting point for migrating their database and application to Azure SQL DB. In this task, you will create a connection to the Oracle database on your Lab VM.
 
 1. In a web browser on LabVM, download a copy of the [Migrating Oracle to  Azure SQL and PostgreSQL upgrade and migration MCW repo](https://github.com/microsoft/MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL/archive/refs/heads/master.zip).
 
-2. Unzip the contents to **C:\handsonlab**.
+2. Unzip the contents to `C:\handsonlab`.
 
 3. Launch SQL Developer from the `C:\Tools\sqldeveloper` path from earlier. In the **Database Connection** window, select **Create a Connection Manually**.
 
@@ -183,13 +183,15 @@ In this task, you will add the necessary configuration to the `NorthwindMVC` sol
 
    ![Start is selected on the toolbar.](./media/visual-studio-toolbar-start.png "Run the solution")
 
+   Install the development certificates.
+
 8. You should see the Northwind Traders Dashboard load in your browser.
 
    ![The Northwind Traders Dashboard is visible in a browser.](./media/northwind-traders-dashboard.png "View the dashboard")
 
 9.  Close the browser to stop debugging the application, and return to Visual Studio.
 
-## Exercise 2: Assess the Oracle 18c Database before Migrating to Azure SQL Database
+## Exercise 2: Assess the Oracle 21c Database before Migrating to Azure SQL Database
 
 Duration: 15 minutes
 
@@ -203,12 +205,12 @@ In this exercise, you will prepare the existing Oracle database for its migratio
 
     ![Creating a new SQL script in Oracle SQL Developer](./media/creating-new-sql-file-sqldev.png "New SQL file")
    
-3. Call the new SQL File `update-18c-stats.sql`. Save it in a location of your choice, such as the `Oracle Scripts` directory from earlier.
+3. Call the new SQL File `update-21c-stats.sql`. Save it in a location of your choice, such as the `Oracle Scripts` directory from earlier.
 
 4. Now, you will populate the new file with the following statements. Run the file as you did when you populated database objects.
 
     ```sql
-    -- 18c script
+    -- 21c script
     EXECUTE DBMS_STATS.GATHER_SCHEMA_STATS(ownname => 'NW');
     EXECUTE DBMS_STATS.GATHER_DATABASE_STATS;
     EXECUTE DBMS_STATS.GATHER_DICTIONARY_STATS;
@@ -216,7 +218,7 @@ In this exercise, you will prepare the existing Oracle database for its migratio
 
     >**Note**: This script can take over one minute to run. Ensure that you receive confirmation that the script has executed successfully.
 
-5. Now, we will utilize a query that lists invalid database objects. It is recommended to fix any errors and compile the objects before starting the migration process. Create a new file named `show-invalid-objects.sql` and save it in the same directory. Run this query to find all of the invalid objects.
+5. Now, we will utilize a query that lists invalid database objects. It is recommended to fix any errors and compile the objects before starting the migration process. Create a new file named `show-invalid-objects.sql` and save it in the same directory. Run this query to find all the invalid objects.
 
     ```sql
     SELECT owner, object_type, object_name
@@ -284,6 +286,8 @@ In this exercise, you will migrate the Oracle database to Azure SQL DB using SSM
 
 11. Right-click the **NW** schema. Select **Create Report**. SSMA will use the metadata it has compiled about objects in the **NW** schema to produce a useful report. SSMA also allows you to create reports at the object level.
 
+   ![The screen shows an example of the SSMA report analysis.](media/ssma-report-example.png "SSMA report example")
+
 12. Once the report is generated, expand the hierarchy on the left-hand side of the page. Select an object that is marked by an error, such as the `CUSTORDERSDETAILS` procedure. On the left side, observe the PL/SQL code, and on the right side, observe the T-SQL code generated by SSMA.
     
     ![CUSTORDERDETAILS stored procedure in the SSMA HTML report.](./media/custorderdetails-assessment.png "Stored procedure in SSMA HTML report")
@@ -312,7 +316,7 @@ In this exercise, you will migrate the Oracle database to Azure SQL DB using SSM
 
 17. In the Connect to Azure SQL Database dialog, provide the following:
 
-    - **Server name**: Enter the DNS name of your Azure SQL DB. It is going to be `northwind-server-[SUFFIX].database.windows.net`, where `[SUFFIX]` represents the parameter you provided to the ARM template.
+    - **Server name**: Enter the DNS name of your Azure SQL DB. It is going to be `northwind-server-[SUFFIX].database.windows.net`, where `[SUFFIX]` represents the parameter you provided to the ARM template. If you forgot the ARM template information, navigate back to the Azure portal. Locate the target Azure SQL Server in your resource group. The database information can be retrieved from database connection information.
 
     - **Database**: Northwind
     - **Authentication**: Set to **SQL Server Authentication**
@@ -329,7 +333,7 @@ In this exercise, you will migrate the Oracle database to Azure SQL DB using SSM
 
     ![The successful connection message is highlighted in the Output window.](./media/ssma-connect-to-azure-sql.png "View the successful connection message")
 
-20. In the Azure SQL Database Metadata Explorer, expand the server node, then Databases. You should see Northwind listed.
+20. Navigate the lower left-hand pane in the SSMA tool. In the Azure SQL Database Metadata Explorer, expand the server node, then Databases. You should see Northwind listed.
 
     ![Northwind is highlighted under Databases in Azure SQL Database Metadata Explorer.](./media/azure-sql-db-metadata-explorer.png "Verify the Northwind listing")
 
@@ -419,11 +423,32 @@ This lab explores a relatively simple migration. This Task will provide addition
 
    Access the **Test Case Wizard**, which guides you through these steps, by selecting **Tester** and **New Test Case**.
 
+   ![The screen shows the Tester menu with the New Test Case selected.](media/new-test-case-menu.png "Test Case Selected")
+
    ![Launching the test case wizard in SSMA.](./media/test-case-wizard.png "Test case wizard")
 
-4. Note that SSMA for Oracle also allows developers to port ad-hoc queries from Oracle to the target database engine syntax, T-SQL. To do this, in the Oracle Metadata Explorer, right-click **Statements** and select **Add Statement**.
+   Select the **Next** button.
 
-5. In the statement editor window, paste the following code. The Oracle `ROWNUM` pseudo-column limits the number of rows in the result set. 
+4. Select your source and affected NW object to test. This example uses the **CUSTOMERS** table.
+
+   ![A hierarchy menu is presented. Select the NW source object.](media/nw-source-object.png "NW Source Object")
+
+   ![A hierarchy menu is presented. Select the affected object.](media/nw-affected-object.png "Select affected object")
+
+5. For Step 4 and 5, accept the defaults. Find your new test case and select the **Run** button.
+6. Enter the **system** credentials for the Oracle database.
+
+   ![The screen shows the Oracle connection information using the system user.](media/connect-to-oracle-db-system.png "Connect using System")
+
+7. Enter the connection information to the Azure SQL database.
+8. A ROWID column must be added to the target tables. Select the Continue button.
+
+   ![The screen shows the ROWIDs are being added to the Categories table.](media/operations-prerequisites-not-met.png "Adding ROWID")
+
+9. Review the comparison report.
+10. Note that SSMA for Oracle also allows developers to port ad-hoc queries from Oracle to the target database engine syntax, T-SQL. To do this, in the Oracle Metadata Explorer, right-click **Statements** and select **Add Statement**.
+
+11. In the statement editor window, paste the following code. The Oracle `ROWNUM` pseudo-column limits the number of rows in the result set.
 
    ```sql
    SELECT *
@@ -433,20 +458,22 @@ This lab explores a relatively simple migration. This Task will provide addition
 
    ![Oracle statement in the SSMA Statement editor.](./media/oracle-statement-ssma.png "Oracle statement with ROWNUM")
 
-6. Right-click the new statement in the Oracle Metadata Explorer and select **Convert Schema**. Immediately, a T-SQL version of the statement should appear next to the **Azure SQL Database Metadata Explorer**.
+12. Right-click the new statement in the Oracle Metadata Explorer and select **Convert Schema**. Immediately, a T-SQL version of the statement should appear next to the **Azure SQL Database Metadata Explorer**.
+
+    ![The screen shows the Convert Schema menu item selected.](media/right-click-convert-statement.png "Convert Schema")
 
    Notice how the `ROWNUM` Oracle pseudo-column is substituted for the T-SQL `TOP` keyword.
-   
+
    ```sql
    SELECT TOP (5) CATEGORIES.CATEGORYID, CATEGORIES.CATEGORYNAME, CATEGORIES.DESCRIPTION, CATEGORIES.PICTURE
    FROM NW.CATEGORIES
    GO
    ```
 
-7. Just like other objects it migrates, SSMA produces a report for the statement conversion. Simply select the **Report** tab.
+13. Right-click and select **Create Report** on the statement. Just like other objects it migrates, SSMA produces a report for the statement conversion. Simply select the **Report** tab.
 
    ![Statement conversion report.](./media/report-for-statement-conversion.png "Statement conversion report")
-   
+
    >**Note:** SSMA can also run in [console mode](https://docs.microsoft.com/sql/ssma/oracle/working-with-ssma-for-oracle-console-oracletosql) to automate assessment and conversion tasks.
 
 ## Exercise 4: Migrate the Application
@@ -479,7 +506,7 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets A
 
     ![Opening the Package Manager console in Visual Studio.](./media/open-pmc.png "Opening the Package Manager Console")
 
-5. Enter the following command in the Package Manager console to create the models. The `-Force` flag eliminates the need to manually clear the `Data` directory.
+5. **Scaffold-DbContext** generates entity types. Enter the following command in the Package Manager console to create the models. The `-Force` flag eliminates the need to manually clear the `Data` directory.
 
     ```powershell
     Scaffold-DbContext Name=ConnectionStrings:AzureSqlConnectionString Microsoft.EntityFrameworkCore.SqlServer -OutputDir Data -Context DataContext -Schemas NW -Force
@@ -491,7 +518,7 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets A
 
     ![Errors in the solution.](./media/solution-errors.png "Solution errors")
 
-7. Expand the **Views** folder. Delete the following folders, each of which contains five views:
+7. Let's start the process of removing artifacts referencing the database migration source schema. In the Solution Explorer, expand the **Views** folder. Delete the following folders, each of which contains five views:
 
    - **Customers**
    - **Employees**
@@ -501,13 +528,13 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets A
 
 8. Expand the **Controllers** folder. Delete all controllers, except **HomeController.cs**.
 
-9. Open **DataContext.cs**. Add the following line to the top of the file, below the other `using` directives.
+9. In the **Data** folder, open **DataContext.cs**. Add the following line to the top of the file, below the other `using` directives.
 
     ```csharp
     using NorthwindMVC.Models;
     ```
 
-    Add the following below the other property definitions.
+    Add the following below the other property definitions.  For example, you can add the new property just under **SalesByCategories**.
 
     ```csharp
     // Add SalesByYearDbSet
@@ -535,7 +562,7 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets A
 
     > **Note**: If you encounter build errors, verify that the `_ViewImports.cshtml` file in the `Views` directory was not accidentally deleted. If it was, simply copy the [file from the project GitHub repository](https://raw.githubusercontent.com/microsoft/MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL/master/Hands-on%20lab/lab-files/starter-project/NorthwindMVC/Views/_ViewImports.cshtml).
 
-11. Right-click the **Controllers** folder and select **Add** (1). Select **New Scaffolded Item...** (2).
+11. Right-click the **Controllers** folder in the Solution Explorer, and select **Add** (1). Select **New Scaffolded Item...** (2).
 
    ![Adding a new scaffolded item.](./media/add-scaffolded-item.png "New scaffolded item")
 
@@ -563,7 +590,7 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets A
     - **SuppliersController.cs**
       - Based on the **Supplier** model class
 
-15. Navigate to **Startup.cs**. Ensure that SQL Server is configured as the correct provider and the appropriate connection string is referenced.
+15. Navigate to **Startup.cs**. Ensure that SQL Server is configured as the correct provider `UseSqlServer` and the appropriate `AzureSqlConnectionString` connection string is referenced.
 
     ```csharp
     // This method gets called by the runtime. Use this method to add services to the container.
@@ -646,7 +673,7 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets A
     - **Data source**: Leave Microsoft SQL Server (SqlClient).
     - **Server name**: Enter the DNS name of the Azure SQL DB instance.
     - **Authentication**: Select SQL Server Authentication.
-    - **Username**: demouser.
+    - **Username**: demouser
     - **Password**: Provide the password you configured for `demouser`.
     - **Connect to a database**: Choose Select or enter a database name, and enter Northwind.
     - Select **Test Connection** to verify your settings are correct, and select **OK** to close the successful connection dialog.
@@ -659,7 +686,7 @@ In this exercise, you will modify the `NorthwindMVC` application so it targets A
 
     ![The newly added SQL Server connection is selected in Server Explorer, and New Query is highlighted in the shortcut menu.](./media/visual-studio-server-explorer-data-connections-new-query.png "Select New Query")
 
-20. Select and copy all of the text from the `SALES_BY_YEAR_fix.sql` file (click CTRL+A, CTRL+C in the `SALES_BY_YEAR_fix.sql` file).
+20. Select and copy all the text from the `SALES_BY_YEAR_fix.sql` file (enter CTRL+A, CTRL+C in the `SALES_BY_YEAR_fix.sql` file).
 
 21. Paste (CTRL+V) the copied text into the new Query window.
 
@@ -776,7 +803,7 @@ In this task, you will install the AdventureWorks database in SQL Server 2008 R2
 
 15. This will create the `AdventureWorksDW2008R2` database. When the script is done running, you will see output similar to the following in the results pane.
 
-    ![Output is displayed in the results pane. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](./media/ssms-query-instawdwdb-script-output.png "View the script output")
+    ![Output is displayed in the results pane. At this time, we are unable to capture all the information in the window. Future versions of this course should address this.](./media/ssms-query-instawdwdb-script-output.png "View the script output")
 
 16. Expand **Databases** in Object Explorer, right-click the `AdventureWorksDW2008R2` database, and select **Rename**.
 
@@ -954,7 +981,7 @@ In this task, you create a new migration project for the WideWorldImporters data
 
    ![Locate the wwi-dms instance of Azure Database Migration Service from the hands-on-lab-SUFFIX resource group.](./media/locate-wwi-dms-in-rg.png "Locating wwi-dms using search filters in the hands-on-lab-SUFFIX resource group")
 
-2. On the Azure Database Migration Service blade, select **+New Migration Project**.
+2. Start the migration service, if it is not started. On the Azure Database Migration Service blade, select **+New Migration Project**.
 
    ![On the Azure Database Migration Service blade, +New Migration Project is highlighted in the toolbar.](media/dms-add-new-migration-project.png "Azure Database Migration Service New Project")
 
@@ -1262,7 +1289,7 @@ In this task, you will create a new table based on the existing `FactResellerSal
 
     ![Various information is highlighted on the Messages tab of the Results pane.](./media/ssms-query-results-messages-statistics-io.png "Compare the information")
 
-15. You are now done with the SqlServer2008 VM. Log off of the VM to close the RDP session.
+15. You are now done with the SqlServer2008 VM. Log off the VM to close the RDP session.
 
 ## After the hands-on lab
 

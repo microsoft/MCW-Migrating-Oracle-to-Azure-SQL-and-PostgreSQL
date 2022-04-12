@@ -1,3 +1,8 @@
+# Retirement notice
+This workshop will be retired effective June 30, 2022. At that time the repository will be archived, and the materials will not be maintained.
+
+For questions or concerns regarding the MCW library, email us at [AskMCW](mailto:AskMCW@microsoft.com). Please remember to include the title of the workshop in your email.
+
 # Migrating Oracle to Azure SQL and PostgreSQL
 
 Wide World Importers (WWI) has experienced significant growth in the last few years. As a result, the Oracle OLTP database that powers their vendor integrations and inventory and sales applications has proved inadequate. The CIO has read about the performance and security enhancements of Azure SQL Database. Before committing to an Azure migration, the CIO would like a PoC of the OLTP database migration and the necessary modifications to the ASP.NET Core inventory app.
